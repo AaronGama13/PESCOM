@@ -17,7 +17,6 @@
             <div>
                 <a href="productos.jsp">Productos</a>
                 <a href="carrito.jsp"><img src="IMG/cart.jpg" width="50" height="50"></a>
-                <a href="mi_cuenta.jsp"><img src="IMG/count.png" width="50" height="50"></a>
             </div>
         </header>
         <div>
