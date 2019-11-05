@@ -6,13 +6,17 @@
 */
 
 package Database;
+import Modelos.Producto;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO comprador VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
+    private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
     
-    public static int createUser(String [] params){
+    public static int createUsuario(String [] params){
         try{
             Connection cnx = Conexion.getConexion();
             PreparedStatement ps = cnx.prepareStatement(INSERT_USER);
@@ -33,9 +37,37 @@ public class Sentencias {
             ps.setString(15,params[14]); //password         
             return ps.executeUpdate();
         }catch(Exception error){
-            System.out.println("ERROR (Sentencias.createUser): "+error);
+            System.out.println("ERROR (Sentencias.createUsuario): "+error);
             error.printStackTrace();
             return 10;
         }
+    }
+    
+    public static ArrayList<Producto> readProductos(char tipo){
+        ArrayList<Producto> productos = new ArrayList();
+        try{
+            PreparedStatement ps = null;
+            if(tipo!='N'){
+                ps = Conexion.getConexion().prepareStatement(SELECT_PRODUCTOS_TIPO);
+                ps.setString(1,String.valueOf(tipo));
+            }else{
+                ps = Conexion.getConexion().prepareStatement(SELECT_PRODUCTOS);
+            }
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Producto aux = new Producto(
+                        rs.getString("nom"),
+                        rs.getDouble("precio"), //precio
+                        rs.getInt("stock"), //stock
+                        rs.getBlob("foto"), //foto
+                        rs.getString("detalles") //detalles
+                );
+                productos.add(aux);
+            }
+            return productos;
+        }catch(Exception error){
+            System.out.println("ERROR (Sentencias.readProductos): "+error);
+        }
+        return productos;
     }
 }

@@ -4,6 +4,12 @@
     Author     : gamma
 --%>
 
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.sql.Blob"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Modelos.Producto"%>
+<%@page import="Database.Sentencias"%>
+<%@page import="Database.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -34,7 +40,16 @@
             </div>
             <div>
                 <%
-                    //AQUÍ VAMOS A LLENAR CON UNA CONSULTA A LA BASE DE DATOS
+                    try{
+                        Conexion con = new Conexion();
+                        ArrayList<Producto> productos = Sentencias.readProductos('N');
+                        for(Producto p : productos){
+                            out.print("<div>"+p.getNombre()+"<br><img src='IMG/cart.jpg' width='50' height='50' ><br>"+p.getPrecio());
+                            out.print("<br><button>Comprar</button></div>");
+                        }
+                    }catch(Exception e){
+                        System.out.println("ERROR"+e);
+                    }
                 %>
             </div>
         </div>
