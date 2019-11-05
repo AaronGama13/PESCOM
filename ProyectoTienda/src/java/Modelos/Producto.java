@@ -8,20 +8,29 @@
 package Modelos;
 
 import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Producto {
     
     private String nombre,detalles;
     private Double precio;
     private int stock;
-    private Blob foto;
+    private String foto;
     
     public Producto(String nombre, Double precio, int stock, Blob foto, String detalles){
-        this.nombre=nombre;
-        this.precio=precio;
-        this.stock=stock;
-        this.foto=foto;
-        this.detalles=detalles;
+        try {
+            this.nombre=nombre;
+            this.precio=precio;
+            this.stock=stock;
+            byte[] aux = foto.getBytes(1,(int) foto.length());
+            this.foto = Base64.getEncoder().encodeToString(aux);
+            this.detalles=detalles;
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public String getNombre(){
@@ -36,7 +45,7 @@ public class Producto {
         return stock;
     }
     
-    public Blob getFoto(){
+    public String getFoto(){
         return foto;
     }
     
