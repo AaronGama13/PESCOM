@@ -4,6 +4,7 @@
     Author     : gamma
 --%>
 
+<%@page import="java.util.Base64"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.sql.Blob"%>
 <%@page import="java.util.ArrayList"%>
@@ -44,7 +45,7 @@
                         Conexion con = new Conexion();
                         ArrayList<Producto> productos = Sentencias.readProductos('N');
                         for(Producto p : productos){
-                            out.print("<div>"+p.getNombre()+"<br><img src='IMG/cart.jpg' width='50' height='50' ><br>"+p.getPrecio());
+                            out.print("<div>"+p.getNombre()+"<br><img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ><br>"+p.getPrecio());
                             out.print("<br><button>Comprar</button></div>");
                         }
                     }catch(Exception e){
