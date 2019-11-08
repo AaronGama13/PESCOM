@@ -33,43 +33,119 @@
             </ul>
             <div class="tab-content">
                 <div id="signup">   
-                    <h1>Carrito de Compras</h1>
+                    <h1>¡Únete!</h1>
                     <form action="ServletRegistro" method="POST">          
                     <div class="top-row">
                         <div class="field-wrap">
                             <label>
-                                Nombre<span class="req"></span>
+                                Usuario<span class="req"></span>
                             </label>
-                            <input type="text" required autocomplete="off" name="txtUsu" id="txtUsu"/>
+                            <input type="text" required autocomplete="off" name="username" id="username"/>
                         </div>
                         <div class="field-wrap">
                             <label>
-                              Apellidos<span class="req"></span>
+                                Nombre<span class="req"></span>
                             </label>
-                            <input type="text"required autocomplete="off" name="txtAp" id="txtAp"/>
+                            <input type="text" required autocomplete="off" name="np" id="np"/>
                         </div>
                     </div>
-                    <div class="field-wrap">
-                        <label>
-                          Password<span class="req"></span>
-                        </label>
-                        <input type="password"required autocomplete="off" name="txtPas"/>
-                    </div>     
-                    <div class="field-wrap">
-                        <label>
-                            Correo<span class="req"></span>
-                        </label>
-                         <input maxlength="120" type="email"required autocomplete="off" name="txtEmail"/>
-                    </div>     
-                    <div class="field-wrap">
-                        <label>
-                            Localidad<span class="req"></span>
-                        </label>
-                        <input type="text"required autocomplete="off" name="txtLoc"/>
+                    <div class="top-row">    
+                        <div class="field-wrap">
+                            <label>
+                              Apellido paterno<span class="req"></span>
+                            </label>
+                            <input type="text"required autocomplete="off" name="ap" id="ap"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Apellido materno<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="am" id="am"/>
+                        </div>
+                    </div>
+                    <div class="top-row">    
+                        <div class="field-wrap">
+                            <label>
+                                Calle<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="calle" id="calle"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                No. Exterior<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="noExt" id="noExt"/>
+                        </div>
+                    </div>
+                    <div class="top-row">    
+                        <div class="field-wrap">
+                            <label>
+                                No. Interior<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="noInt" id="noInt"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Colonia<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="col" id="col"/>
+                        </div>
+                    </div>
+                    <div class="top-row">    
+                        <div class="field-wrap">
+                            <label>
+                                Alcaldía<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="alc" id="alc"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Municipio<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="muni" id="muni"/>
+                        </div>
+                    </div>
+                    <div class="top-row">    
+                        <div class="field-wrap">
+                            <label>
+                                Estado<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="edo" id="edo"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Ciudad<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="cd" id="cd"/>
+                        </div>
+                    </div>
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>
+                                Código Postal<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="cp" id="cp"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Teléfono<span class="req"></span>
+                            </label>
+                            <input type="text" required autocomplete="off" name="tel" id="tel"/>
+                        </div>
+                    </div>
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>
+                                Contraseña<span class="req"></span>
+                            </label>
+                            <input type="password" required autocomplete="off" name="pass" id="pass"/>
+                        </div>
                     </div>                    
+                        <br>                    
                     <button type="submit" class="button button-block"/>Registrarse</button>
                     </form>
                 </div>
+                
                 <div id="login">   
                     <h1>¡Bienvenido!</h1>          
                     <form action="ServletLogin" method="POST">
