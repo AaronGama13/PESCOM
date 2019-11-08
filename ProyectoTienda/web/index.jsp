@@ -152,15 +152,15 @@
                         <input type="hidden" name="accion" value="loguin"/>
                         <div class="field-wrap">
                             <label>
-                              Nombre<span class="req"></span>
+                              Usuario<span class="req"></span>
                             </label>
-                            <input type="text"required autocomplete="off" name="txtUsu"/>
+                            <input type="text"required autocomplete="off" name="username"/>
                         </div>
                         <div class="field-wrap">
                         <label>
                           Contraseña<span class="req" ></span>
                         </label>
-                        <input type="password"required autocomplete="off" name="txtPas"/>
+                        <input type="password"required autocomplete="off" name="pass"/>
                         </div>
                         <button class="button button-block"/>Iniciar Sesión</button>
                     </form>
