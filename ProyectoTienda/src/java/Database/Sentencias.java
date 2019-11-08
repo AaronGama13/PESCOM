@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO comprador VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String SELECT_USERNAME = "SELECT username, pass FROM Comprador";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
     
@@ -41,6 +42,25 @@ public class Sentencias {
             error.printStackTrace();
             return 10;
         }
+    }
+    
+    public static int loguinUsuario(String username, String pass) {
+        try {
+            PreparedStatement ps = null;
+            ps = Conexion.getConexion().prepareCall(SELECT_USERNAME);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                rs.getString(1);                
+                rs.getString(15);
+            }
+            if(rs.next()) {
+                return 1;
+            } else {return 0;}
+            
+        } catch(Exception e) {
+            System.out.println("Excepcion en sentencias SELECT USUARIO " + e);
+        }
+        return 0;
     }
     
     public static ArrayList<Producto> readProductos(char tipo){
