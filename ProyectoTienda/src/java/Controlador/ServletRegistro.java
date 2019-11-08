@@ -21,8 +21,8 @@ import Modelos.RegistrarU;
 @WebServlet(name = "ServletRegistro", urlPatterns = {"/ServletRegistro"})
 public class ServletRegistro extends HttpServlet {
 
-    String username, np, ap, am, calle, col, alc, muni, edo, cd, pass;
-    int noExt, noInt, cp, tel;
+    String username, np, ap, am, calle, col, alc, muni, edo, cd, pass, tel;
+    int noExt, noInt, cp;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,7 +42,7 @@ public class ServletRegistro extends HttpServlet {
             edo = request.getParameter("edo");
             cd = request.getParameter("cd");
             cp = Integer.parseInt(request.getParameter("cp"));
-            tel = Integer.parseInt(request.getParameter("tel"));
+            tel = request.getParameter("tel");
             pass = request.getParameter("pass");
             
             RegistrarU registrar = new RegistrarU();

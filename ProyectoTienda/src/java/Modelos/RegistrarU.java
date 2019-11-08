@@ -16,7 +16,7 @@ public class RegistrarU {
     
     public boolean registro(String username, String np, String ap, String am,
             String calle, int noExt, int noInt, String col, String alc,
-            String muni, String edo, String cd, int cp, int tel, String pass) {
+            String muni, String edo, String cd, int cp, String tel, String pass) {
         PreparedStatement ps = null;
         
         try{
@@ -37,7 +37,7 @@ public class RegistrarU {
             ps.setString(11, edo);
             ps.setString(12, cd);
             ps.setInt(13, cp);
-            ps.setInt(14, tel);
+            ps.setString(14, tel);
             ps.setString(15, pass);
             
             if(ps.executeUpdate() == 1) {
