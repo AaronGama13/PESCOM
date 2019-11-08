@@ -130,7 +130,7 @@
                             <label>
                                 Teléfono<span class="req"></span>
                             </label>
-                            <input type="number" required autocomplete="off" name="tel" id="tel"/>
+                            <input type="text" required autocomplete="off" name="tel" id="tel"/>
                         </div>
                     </div>
                     <div class="top-row">
