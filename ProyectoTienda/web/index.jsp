@@ -74,7 +74,7 @@
                             <label>
                                 No. Exterior<span class="req"></span>
                             </label>
-                            <input type="text" required autocomplete="off" name="noExt" id="noExt"/>
+                            <input type="number" required autocomplete="off" name="noExt" id="noExt"/>
                         </div>
                     </div>
                     <div class="top-row">    
@@ -82,7 +82,7 @@
                             <label>
                                 No. Interior<span class="req"></span>
                             </label>
-                            <input type="text" required autocomplete="off" name="noInt" id="noInt"/>
+                            <input type="number" required autocomplete="off" name="noInt" id="noInt"/>
                         </div>
                         <div class="field-wrap">
                             <label>
@@ -124,13 +124,13 @@
                             <label>
                                 Código Postal<span class="req"></span>
                             </label>
-                            <input type="text" required autocomplete="off" name="cp" id="cp"/>
+                            <input type="number" required autocomplete="off" name="cp" id="cp"/>
                         </div>
                         <div class="field-wrap">
                             <label>
                                 Teléfono<span class="req"></span>
                             </label>
-                            <input type="text" required autocomplete="off" name="tel" id="tel"/>
+                            <input type="number" required autocomplete="off" name="tel" id="tel"/>
                         </div>
                     </div>
                     <div class="top-row">
