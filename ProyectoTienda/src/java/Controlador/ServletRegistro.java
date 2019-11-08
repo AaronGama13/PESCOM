@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Database.Sentencias;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,48 +13,44 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Modelos.RegistrarU;
+
 
 /**
  *
  * @author saulg
  */
 @WebServlet(name = "ServletRegistro", urlPatterns = {"/ServletRegistro"})
-public class ServletRegistro extends HttpServlet {
-
-    String username, np, ap, am, calle, col, alc, muni, edo, cd, pass, tel;
-    int noExt, noInt, cp;
+public class ServletRegistro extends HttpServlet {   
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            username = request.getParameter("username");
-            np = request.getParameter("np");
-            ap = request.getParameter("ap");
-            am = request.getParameter("am");
-            calle = request.getParameter("calle");
-            noExt = Integer.parseInt(request.getParameter("noExt"));
-            noInt = Integer.parseInt(request.getParameter("noInt"));
-            col = request.getParameter("col");
-            alc = request.getParameter("alc");
-            muni = request.getParameter("muni");
-            edo = request.getParameter("edo");
-            cd = request.getParameter("cd");
-            cp = Integer.parseInt(request.getParameter("cp"));
-            tel = request.getParameter("tel");
-            pass = request.getParameter("pass");
+            String [] params = new String[15];
             
-            RegistrarU registrar = new RegistrarU();
+            params[0] = request.getParameter("username");
+            params[1] = request.getParameter("np");
+            params[2] = request.getParameter("ap");
+            params[3] = request.getParameter("am");
+            params[4] = request.getParameter("calle");
+            params[5] = request.getParameter("noExt");
+            params[6] = request.getParameter("noInt");
+            params[7] = request.getParameter("col");
+            params[8] = request.getParameter("alc");
+            params[9] = request.getParameter("muni");
+            params[10] = request.getParameter("edo");
+            params[11] = request.getParameter("cd");
+            params[12] = request.getParameter("cp");
+            params[13] = request.getParameter("tel");
+            params[14] = request.getParameter("pass");
             
-            if(registrar.registro(username, np, ap, am, calle, noExt, noInt, col, alc, muni, edo, cd, cp, tel, pass)) {
+            if(Sentencias.createUsuario(params) == 1){
                 response.sendRedirect("index.jsp");
             } else {
                 request.setAttribute("msg", "No se pudieron registrar sus datos");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            }
-            
+            }                                    
         }
     }
 
