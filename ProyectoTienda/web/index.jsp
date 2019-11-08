@@ -10,10 +10,10 @@
 
 <%
     //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE
-    String nom="";
+    String username="";
     HttpSession sesionOK=request.getSession();
     if(sesionOK.getAttribute("perfil")!=null)
-        nom=(String)sesionOK.getAttribute("nom")+" "+(String)sesionOK.getAttribute("ape");
+        username=(String)sesionOK.getAttribute("username");
     %>
 <!DOCTYPE html>
 
