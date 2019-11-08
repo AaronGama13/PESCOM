@@ -12,7 +12,7 @@
     //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE
     String username="";
     HttpSession sesionOK=request.getSession();
-    if(sesionOK.getAttribute("perfil")!=null)
+    if(sesionOK.getAttribute("status")!=null)
         username=(String)sesionOK.getAttribute("username");
     %>
 <!DOCTYPE html>
