@@ -148,7 +148,7 @@
                 
                 <div id="login">   
                     <h1>¡Bienvenido!</h1>          
-                    <form action="ServletLogin" method="POST">
+                    <form action="ServletLoguin" method="POST">
                         <input type="hidden" name="accion" value="loguin"/>
                         <div class="field-wrap">
                             <label>
