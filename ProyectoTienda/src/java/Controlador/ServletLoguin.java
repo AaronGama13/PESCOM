@@ -38,19 +38,28 @@ public class ServletLoguin extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
             String pass = request.getParameter("pass");
+            String accion = request.getParameter("accion");
             
-            if(username.isEmpty() || pass.isEmpty()) {
-                request.setAttribute("msg", "Llena todos los campos");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            } else {
-                if(Sentencias.autenticacion(username, pass)) {                                                            
+            if (accion.equals("loguin")) {
+                if (username.isEmpty() || pass.isEmpty()) {
+                    request.setAttribute("msg", "Llena todos los campos");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                } else {
+                    if (Sentencias.autenticacion(username, pass)) {
                         HttpSession sesion = request.getSession();
                         sesion.setAttribute("usuario", username);
-                        response.sendRedirect("productos.jsp");                                                                                         
-                } else {
-                    request.setAttribute("msg", "Usuario o contraseña incorrectos");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);                                          
-                    }        
+                        response.sendRedirect("productos.jsp");
+                    } else {
+                        request.setAttribute("msg", "Usuario o contraseña incorrectos");
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    }
+                }
+            }
+            else if(accion.equals("cerrar")) {
+                HttpSession sesion = request.getSession();
+                request.getSession().removeAttribute("usuario");
+                sesion.invalidate();
+                response.sendRedirect("index.jsp");
             }
         }
     }
