@@ -47,7 +47,7 @@ public class ServletLoguin extends HttpServlet {
                     String user = (String) sesion.getAttribute("status");
                     if(user == null) {
                         HttpSession sesion2 = request.getSession(true);
-                        response.sendRedirect("index.jsp");         
+                        response.sendRedirect("productos.jsp");         
                         sesion2.setAttribute("NombreUsuario", username);
                         sesion2.setAttribute("Password", pass);
                     } else {

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO comprador VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SELECT_USERNAME = "SELECT * FROM Comprador where NombreUsuario=? and  Password=?";
+    private static final String SELECT_USERNAME = "SELECT * FROM Comprador where username=? and  pass=?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
     
@@ -44,13 +44,13 @@ public class Sentencias {
         }
     }
     
-    public static boolean autenticacion(String NombreUsuario, String Password){
+    public static boolean autenticacion(String username, String pass){
         PreparedStatement pst= null;
         ResultSet rs= null;
          try {             
              pst = Conexion.getConexion().prepareStatement(SELECT_USERNAME);
-             pst.setString(1, NombreUsuario);
-             pst.setString(2,Password);
+             pst.setString(1, username);
+             pst.setString(2,pass);
              rs = pst.executeQuery();
              if (rs.absolute(1)) {
                 return true;               
