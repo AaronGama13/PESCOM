@@ -12,6 +12,16 @@
 <%@page import="Database.Sentencias"%>
 <%@page import="Database.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE    
+    HttpSession sesionOK = request.getSession();   
+    String username = "";
+    if(sesionOK.getAttribute("usuario") != null){
+        username = (String) sesionOK.getAttribute("usuario");
+    }
+    %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +32,11 @@
     <center>
         <header>
             <div>
+                <%if(sesionOK.getAttribute("usuario") != null){%>
+                <h2><%out.println("Bienvenido a LinioMX feiq " + username);%></h2>
+                <%} else {%>
+                <a href="index.jsp"></a>
+                <%}%>
                 <a href="productos.jsp">Productos</a>
                 <a href="carrito.jsp"><img src="IMG/cart.jpg" width="50" height="50"></a>
             </div>
@@ -54,6 +69,11 @@
                 %>
             </div>
         </div>
+            <div>
+                <% if(sesionOK.getAttribute("usuario") != null){%>
+                <a href="ServletLoguin?accion=cerrar">Cerrar sesión</a>
+                <%}%>
+            </div>
     </center>
     </body>
 </html>
