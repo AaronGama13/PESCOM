@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO comprador VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SELECT_USERNAME = "SELECT username, pass FROM Comprador";
+    private static final String SELECT_USERNAME = "SELECT * FROM Comprador where NombreUsuario=? and  Password=?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
     
@@ -44,23 +44,29 @@ public class Sentencias {
         }
     }
     
-    public static int loguinUsuario(String username, String pass) {
-        try {
-            PreparedStatement ps = null;
-            ps = Conexion.getConexion().prepareCall(SELECT_USERNAME);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                rs.getString(1);                
-                rs.getString(15);
+    public static boolean autenticacion(String NombreUsuario, String Password){
+        PreparedStatement pst= null;
+        ResultSet rs= null;
+         try {             
+             pst = Conexion.getConexion().prepareStatement(SELECT_USERNAME);
+             pst.setString(1, NombreUsuario);
+             pst.setString(2,Password);
+             rs = pst.executeQuery();
+             if (rs.absolute(1)) {
+                return true;               
+             }
+        } catch (Exception e) {
+              System.err.println("Error "+e);
+        }finally{
+            try {
+                if(Conexion.getConexion()!=null) Conexion.getConexion().close();
+                if(pst!=null) pst.close();
+                if(rs!=null) rs.close();
+            } catch (Exception e) {
+              System.err.println("Error "+e);
             }
-            if(rs.next()) {
-                return 1;
-            } else {return 0;}
-            
-        } catch(Exception e) {
-            System.out.println("Excepcion en sentencias SELECT USUARIO " + e);
         }
-        return 0;
+        return false;
     }
     
     public static ArrayList<Producto> readProductos(char tipo){
