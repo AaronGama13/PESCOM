@@ -9,11 +9,12 @@
 <%@page session="true"%>
 
 <%
-    //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE
-    String username="";
-    HttpSession sesionOK=request.getSession();
-    if(sesionOK.getAttribute("status")!=null)
-        username=(String)sesionOK.getAttribute("username");
+    //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE    
+    HttpSession sesionOK = null;
+    String username= (String) sesionOK.getAttribute("usuario");
+    if(username==null){
+        sesionOK.setAttribute("usuario", username);
+    }
     %>
 <!DOCTYPE html>
 
