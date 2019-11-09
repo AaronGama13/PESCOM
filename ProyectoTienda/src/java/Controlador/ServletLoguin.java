@@ -40,21 +40,17 @@ public class ServletLoguin extends HttpServlet {
             String pass = request.getParameter("pass");
             
             if(username.isEmpty() || pass.isEmpty()) {
-                response.sendRedirect("index.jsp");
+                request.setAttribute("msg", "Llena todos los campos");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
-                if(Sentencias.autenticacion(username, pass)) {
-                    HttpSession sesion = request.getSession();
-                    String user = (String) sesion.getAttribute("usuario");
-                    if(user == null) {
-                        HttpSession sesion2 = request.getSession(true);
-                        response.sendRedirect("productos.jsp");         
-                        sesion2.setAttribute("NombreUsuario", username);
-                        sesion2.setAttribute("Password", pass);
-                    } else {
-                        response.sendRedirect("index.jsp");
-                        
-                    }                    
-                }
+                if(Sentencias.autenticacion(username, pass)) {                                                            
+                        HttpSession sesion = request.getSession();
+                        sesion.setAttribute("usuario", username);
+                        response.sendRedirect("productos.jsp");                                                                                         
+                } else {
+                    request.setAttribute("msg", "Usuario o contraseña incorrectos");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);                                          
+                    }        
             }
         }
     }
