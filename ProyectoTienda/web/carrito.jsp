@@ -4,7 +4,22 @@
     Author     : gamma
 --%>
 
+<%@page import="java.util.Base64"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.sql.Blob"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Modelos.Producto"%>
+<%@page import="Database.Sentencias"%>
+<%@page import="Database.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE    
+    HttpSession sesionOK = request.getSession();   
+    String username = (String) sesionOK.getAttribute("usuario");
+    ArrayList<Producto> Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");;
+    %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +36,24 @@
         </header>
         <div>
             <h1>Mi carrito de compras</h1>
-            <%//AQUÍ SE MUESTRAN TODOS LOS ELEMENTOS DEL CARRITO%>
+            <%
+                try{
+                    out.print("<table>");
+                    for(Producto p : Carrito){
+                        out.print("<tr>");
+                        //out.print("<form action= \"ServletCarrito?accion=agregar\" method=\"POST\" >");
+                        out.print("<td>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></td>");
+                        out.print("<td> <img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ></td>");
+                        out.print("<td>" + p.getPrecio() + "</td>");
+                        //out.print("</form>");
+                        out.print("</tr>");
+
+                    }
+                    out.print("</table>");
+                }catch(Exception e){
+                    System.out.println("ERROR"+e);
+                }
+            %>
         </div>
     </center>
     </body>

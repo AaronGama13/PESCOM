@@ -106,6 +106,11 @@ LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
+insert into producto values
+	(1, 'Carro', 95.99, 11, 'I', 0x0, 'Feo'),
+    (2, 'Arbol', 13.90, 3, 'I', 0x0, 'Frondoso'),
+	(3, 'Zombie', 20.20, 99, 'M', 0x0, 'Clasico');
+
 --
 -- Table structure for table `productocompra`
 --

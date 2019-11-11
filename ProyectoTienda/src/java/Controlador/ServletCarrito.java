@@ -6,8 +6,10 @@
 package Controlador;
 
 import Database.Sentencias;
+import Modelos.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +19,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author saulg
+ * @author dacov
  */
-@WebServlet(name = "ServletLoguin", urlPatterns = {"/ServletLoguin"})
-public class ServletLoguin extends HttpServlet {
+@WebServlet(name = "ServletCarrito", urlPatterns = {"/ServletCarrito"})
+public class ServletCarrito extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,33 +37,40 @@ public class ServletLoguin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("username");
-            String pass = request.getParameter("pass");
             String accion = request.getParameter("accion");
             
-            if (accion.equals("loguin")) {
-                if (username.isEmpty() || pass.isEmpty()) {
-                    request.setAttribute("msg", "Llena todos los campos");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                } else {
-                    if (Sentencias.autenticacion(username, pass)) {
-                        HttpSession sesion = request.getSession();
-                        sesion.setAttribute("usuario", username);
-                        sesion.setAttribute("Carrito", null);
-                        response.sendRedirect("productos.jsp");
-                    } else {
-                        request.setAttribute("msg", "Usuario o contraseña incorrectos");
-                        request.getRequestDispatcher("index.jsp").forward(request, response);
-                    }
-                }
-            }
-            else if(accion.equals("cerrar")) {
+            if(accion.equals("agregar"))
+            {
+                int idProducto = Integer.parseInt( request.getParameter("idProducto"));
+                
                 HttpSession sesion = request.getSession();
-                request.getSession().removeAttribute("usuario");
-                sesion.invalidate();
-                response.sendRedirect("index.jsp");
+                
+                ArrayList<Producto> Carrito = (ArrayList<Producto>) sesion.getAttribute("Carrito");
+                Producto aux = Sentencias.readProductoId(idProducto);
+                if(Carrito == null)
+                    Carrito = new ArrayList<Producto>();
+                Carrito.add(aux);
+                sesion.setAttribute("Carrito", Carrito);
+                response.sendRedirect("productos.jsp");
             }
+            else if(accion.equals("verCarrito"))
+            {
+                HttpSession sesion = request.getSession();
+                
+                String username = (String) sesion.getAttribute("username");
+                sesion.setAttribute("username", username);
+                ArrayList<Producto> Carrito = (ArrayList<Producto>) sesion.getAttribute("Carrito");
+                sesion.setAttribute("Carrito", Carrito);
+                
+                response.sendRedirect("carrito.jsp");
+            }
+            else if(accion.equals("filtrar"))
+            {
+                HttpSession sesion = request.getSession();
+            }
+        } catch(Exception e)
+        {
+            System.out.println("ERROR (Sentencias.readProductos): "+e);
         }
     }
 

@@ -17,8 +17,10 @@
     //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE    
     HttpSession sesionOK = request.getSession();   
     String username = "";
+    ArrayList<Producto> Carrito = new ArrayList<Producto>();
     if(sesionOK.getAttribute("usuario") != null){
         username = (String) sesionOK.getAttribute("usuario");
+        Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
     }
     %>
 
@@ -28,6 +30,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <script type="text/javascript">
+        function agregar_carrito()
+        {
+            alert("Producto agregado al carrito de compras");
+        }
+    </script>
     <body>
     <center>
         <header>
@@ -38,31 +46,48 @@
                 <a href="index.jsp"></a>
                 <%}%>
                 <a href="productos.jsp">Productos</a>
-                <a href="carrito.jsp"><img src="IMG/cart.jpg" width="50" height="50"></a>
+                <%
+                    out.print("<form action= \"ServletCarrito?accion=verCarrito\" method=\"POST\">");
+                    out.print("<input type = \"image\" src=\"IMG/cart.jpg\" width=\"70\" height=\"70\">");
+                    out.print("</form>");
+                %>
             </div>
         </header>
         <div>
             <div>
                 <h1>Productos</h1>
                 <h3>Filtrar por:
-                    <select>
-                        <option>Todos</option>
-                        <option>Imágenes</option>
-                        <option>Libros</option>
-                        <option>Películas</option>
-                        <option>Música</option>
-                    </select>
+                    
+                        <select>
+                            <option>Todos</option>
+                            <option>Imágenes</option>
+                            <option>Libros</option>
+                            <option>Películas</option>
+                            <option>Musica</option>
+                        </select>
+                    
                 </h3>
             </div>
             <div>
+                <input type="hidden" name="accion" value="agregar"/>
                 <%
                     try{
                         Conexion con = new Conexion();
                         ArrayList<Producto> productos = Sentencias.readProductos('N');
+                        out.print("<table>");
                         for(Producto p : productos){
-                            out.print("<div>"+p.getNombre()+"<br><img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ><br>"+p.getPrecio());
-                            out.print("<br><button>Comprar</button></div>");
+                            out.print("<tr>");
+                            out.print("<form action= \"ServletCarrito?accion=agregar\" method=\"POST\" >");
+                            out.print("<td>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></td>");
+                            out.print("<td> <img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ></td>");
+                            out.print("<td>" + p.getPrecio() + "</td>");
+                            out.print("<td><input type = \"submit\" value = \"Comprar\" " +
+                                    "onclick=\"agregar_carrito()\"></td>");
+                            out.print("</form>");
+                            out.print("</tr>");
+
                         }
+                        out.print("</table>");
                     }catch(Exception e){
                         System.out.println("ERROR"+e);
                     }

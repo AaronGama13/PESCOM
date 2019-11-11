@@ -17,11 +17,12 @@ public class Producto {
     
     private String nombre,detalles;
     private Double precio;
-    private int stock;
+    private int stock, idProducto;
     private String foto;
     
-    public Producto(String nombre, Double precio, int stock, Blob foto, String detalles){
+    public Producto(int idProducto, String nombre, Double precio, int stock, Blob foto, String detalles){
         try {
+            this.idProducto=idProducto;
             this.nombre=nombre;
             this.precio=precio;
             this.stock=stock;
@@ -31,6 +32,10 @@ public class Producto {
         } catch (SQLException ex) {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public int getId(){
+        return idProducto;
     }
     
     public String getNombre(){

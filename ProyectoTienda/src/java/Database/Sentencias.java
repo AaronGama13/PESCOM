@@ -15,6 +15,7 @@ public class Sentencias {
     private static final String INSERT_USER = "INSERT INTO comprador VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM Comprador where username=? and  pass=?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
+    private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
     
     public static int createUsuario(String [] params){
@@ -59,7 +60,7 @@ public class Sentencias {
               System.err.println("Error "+e);
         }finally{
             try {
-                if(Conexion.getConexion()!=null) Conexion.getConexion().close();
+                if(Conexion.getConexion()!=null) //Conexion.getConexion().close();
                 if(pst!=null) pst.close();
                 if(rs!=null) rs.close();
             } catch (Exception e) {
@@ -82,6 +83,7 @@ public class Sentencias {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Producto aux = new Producto(
+                        rs.getInt("idProducto"),
                         rs.getString("nom"),
                         rs.getDouble("precio"), //precio
                         rs.getInt("stock"), //stock
@@ -95,5 +97,29 @@ public class Sentencias {
             System.out.println("ERROR (Sentencias.readProductos): "+error);
         }
         return productos;
+    }
+    
+    public static Producto readProductoId(int idProducto){
+        Producto aux = null;
+        try{
+            PreparedStatement ps = null;
+            ps = Conexion.getConexion().prepareStatement(SELECT_PRODUCTOS_ID);
+            ps.setString(1,String.valueOf(idProducto));
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                aux = new Producto(
+                        rs.getInt("idProducto"),
+                        rs.getString("nom"),
+                        rs.getDouble("precio"), //precio
+                        rs.getInt("stock"), //stock
+                        rs.getBlob("foto"), //foto
+                        rs.getString("detalles") //detalles
+                );
+            }
+            return aux;
+        }catch(Exception error){
+            System.out.println("ERROR (Sentencias.readProductos): "+error);
+        }
+        return aux;
     }
 }
