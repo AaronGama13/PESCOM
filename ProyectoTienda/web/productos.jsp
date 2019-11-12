@@ -29,6 +29,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="CSS/productos.css">
     </head>
     <script type="text/javascript">
         function agregar_carrito()
@@ -39,66 +40,47 @@
     <body>
     <center>
         <header>
-            <div>
-                <%if(sesionOK.getAttribute("usuario") != null){%>
-                <h2><%out.println("Bienvenido a LinioMX feiq " + username);%></h2>
-                <%} else {%>
-                <a href="index.jsp"></a>
-                <%}%>
-                <a href="productos.jsp">Productos</a>
-                <%
-                    out.print("<form action= \"ServletCarrito?accion=verCarrito\" method=\"POST\">");
-                    out.print("<input type = \"image\" src=\"IMG/cart.jpg\" width=\"70\" height=\"70\">");
-                    out.print("</form>");
-                %>
-            </div>
+            <%
+                if(sesionOK.getAttribute("usuario") == null){
+                    //response.sendRedirect("index.jsp");
+                }
+            %>
+            <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
+            <img class='view_cart' src="IMG/cart.jpg" width="50" height="50">
         </header>
-        <div>
-            <div>
-                <h1>Productos</h1>
-                <h3>Filtrar por:
-                    
-                        <select>
-                            <option>Todos</option>
-                            <option>Imágenes</option>
-                            <option>Libros</option>
-                            <option>Películas</option>
-                            <option>Musica</option>
-                        </select>
-                    
-                </h3>
-            </div>
-            <div>
-                <input type="hidden" name="accion" value="agregar"/>
-                <%
-                    try{
-                        Conexion con = new Conexion();
-                        ArrayList<Producto> productos = Sentencias.readProductos('N');
-                        out.print("<table>");
-                        for(Producto p : productos){
-                            out.print("<tr>");
-                            out.print("<form action= \"ServletCarrito?accion=agregar\" method=\"POST\" >");
-                            out.print("<td>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></td>");
-                            out.print("<td> <img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ></td>");
-                            out.print("<td>" + p.getPrecio() + "</td>");
-                            out.print("<td><input type = \"submit\" value = \"Comprar\" " +
-                                    "onclick=\"agregar_carrito()\"></td>");
-                            out.print("</form>");
-                            out.print("</tr>");
+        <h1>Productos disponibles</h1>
+        <div class="filter_by">        
+            <h3>Filtrar por:
+                <select>
+                        <option>Todos</option>
+                        <option>Imágenes</option>
+                        <option>Libros</option>
+                        <option>Películas</option>
+                        <option>Música</option>
+                    </select>
 
-                        }
-                        out.print("</table>");
-                    }catch(Exception e){
-                        System.out.println("ERROR"+e);
-                    }
-                %>
-            </div>
+            </h3>
+        </div><br><br><br>
+        <div>
+            <%
+            try{
+                Conexion con = new Conexion();
+                ArrayList<Producto> productos = Sentencias.readProductos('N');
+                for(Producto p : productos){
+                    out.print("<div class='product-container'>");
+                        out.print("<form action=\"ServletCarrito?accion=agregar\" method=\"POST\">");
+                        out.print("<h4>"+p.getNombre()+"</h4><input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"><br><br>");
+                        out.print("<img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ><br><br>");
+                        out.print("$ "+p.getPrecio()+" mxn<br><br>");
+                        out.print("<input class='add_cart' type = 'submit' value = \"Agregar al carrito\" " + "onclick=\"agregar_carrito()\"><br><br>");
+                        out.print("<button class='detail_btn'>Ver detalles</button>");
+                    out.print("</div>");
+                }
+            }catch(Exception e){
+                System.out.println("ERROR"+e);
+            }
+            %>
         </div>
-            <div>
-                <% if(sesionOK.getAttribute("usuario") != null){%>
-                <a href="ServletLoguin?accion=cerrar">Cerrar sesión</a>
-                <%}%>
-            </div>
     </center>
     </body>
 </html>

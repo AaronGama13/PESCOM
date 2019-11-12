@@ -1,0 +1,99 @@
+/*
+Del mas oscuro al mas claro
+#346d6b
+#46797e
+#47a581
+#ade79a
+#d5f8b2
+*/
+/* 
+    Created on : 12/11/2019, 08:13:53 AM
+    Author     : gamma
+*/
+
+html{
+    background: #d5f8b2;
+    font-family: "Roboto";
+    font-size: 17px;
+}
+
+h4{
+    margin: 0;
+    margin-bottom: -1em;
+}
+
+header{
+    background: #346d6b;
+    border-radius: 5px;
+    height: 30%;
+}
+
+a{
+    color: #ffffff;
+    font-size: 1.9em;
+    text-decoration: none;
+    
+}
+
+.filter_by{
+    float: right;
+    margin-right: 4em;
+}
+
+.product-container{
+    display: inline-block;
+    background: #ade79a;
+    border-radius: 5px;
+    padding: 2rem;
+    margin: 30px;
+    font-size: 20px;
+}
+
+select{
+    background: #ffffff;
+    color: #47a581;
+    border-radius: 5px;
+    border-color: #46797e;
+    font-size: 18px;
+}
+
+.add_cart {
+    background: #47a581;
+    border-radius: 5px;
+    border-color: #46797e;
+}
+
+input,button{
+    font-size: 17px;
+}
+
+.detail_btn{
+    background: #ffffff;
+    color: #47a581;
+    border-radius: 5px;
+    border-color: #46797e;
+}
+
+.add_cart:hover{
+    -webkit-transform: scale(1.1);
+    -webkit-transition: all 1s ease;
+    -moz-transform: scale(1.1);
+    -o-transform: sclae(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.detail_btn:hover{
+    -webkit-transform: scale(1.1);
+    -webkit-transition: all 1s ease;
+    -moz-transform: scale(1.1);
+    -o-transform: sclae(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.view_cart{
+    float:right;
+    margin-right: 15px;
+    border-radius: 50%;
+}
