@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.37-MariaDB, for Win32 (AMD64)
 --
 -- Host: localhost    Database: tienda
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	10.1.37-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `compra` (
   `comprador` varchar(30) NOT NULL,
   PRIMARY KEY (`noPedido`),
   KEY `comprador` (`comprador`),
-  CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`comprador`) REFERENCES `comprador` (`username`)
+  CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`comprador`) REFERENCES `usuario` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,43 +39,6 @@ CREATE TABLE `compra` (
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `comprador`
---
-
-DROP TABLE IF EXISTS `comprador`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `comprador` (
-  `username` varchar(30) NOT NULL,
-  `np` varchar(70) NOT NULL,
-  `ap` varchar(35) NOT NULL,
-  `am` varchar(35) DEFAULT NULL,
-  `calle` varchar(30) NOT NULL,
-  `noExt` int(11) NOT NULL,
-  `noInt` int(11) DEFAULT NULL,
-  `col` varchar(100) NOT NULL,
-  `alc` varchar(255) NOT NULL,
-  `muni` varchar(255) DEFAULT NULL,
-  `edo` varchar(100) NOT NULL,
-  `cd` varchar(255) NOT NULL,
-  `cp` int(11) NOT NULL,
-  `tel` char(20) DEFAULT NULL,
-  `pass` text NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `comprador`
---
-
-LOCK TABLES `comprador` WRITE;
-/*!40000 ALTER TABLE `comprador` DISABLE KEYS */;
-INSERT INTO `comprador` VALUES ('sadaga2922','Saul','Garcia','Medina','Gabriela Mistral',16,12,'Villa Centroamericana','TlÃ¡huac','TlÃ¡huac','DF','CDMX',13278,'5539623586','hola'),('sss','sss','sss','sss','sss',15,12,'sss','sss','sss','sss','sss',1111,'1111','sjaja');
-/*!40000 ALTER TABLE `comprador` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -94,7 +57,7 @@ CREATE TABLE `producto` (
   `foto` blob NOT NULL,
   `detalles` text NOT NULL,
   PRIMARY KEY (`idProducto`,`nom`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,13 +66,9 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (1,'Carro',95.99,11,'I','\0','Feo'),(2,'Arbol',13.90,3,'I','\0','Frondoso'),(3,'Zombie',20.20,99,'M','\0','Clasico');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
-
-insert into producto values
-	(1, 'Carro', 95.99, 11, 'I', 0x0, 'Feo'),
-    (2, 'Arbol', 13.90, 3, 'I', 0x0, 'Frondoso'),
-	(3, 'Zombie', 20.20, 99, 'M', 0x0, 'Clasico');
 
 --
 -- Table structure for table `productocompra`
@@ -140,12 +99,42 @@ LOCK TABLES `productocompra` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'tienda'
+-- Table structure for table `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `username` varchar(30) NOT NULL,
+  `priv` char(1) NOT NULL,
+  `np` varchar(70) NOT NULL,
+  `ap` varchar(35) NOT NULL,
+  `am` varchar(35) DEFAULT NULL,
+  `calle` varchar(30) NOT NULL,
+  `noExt` int(11) NOT NULL,
+  `noInt` int(11) DEFAULT NULL,
+  `col` varchar(100) NOT NULL,
+  `alc` varchar(255) NOT NULL,
+  `muni` varchar(255) DEFAULT NULL,
+  `edo` varchar(100) NOT NULL,
+  `cd` varchar(255) NOT NULL,
+  `cp` int(11) NOT NULL,
+  `tel` char(20) DEFAULT NULL,
+  `pass` text NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'tienda'
+-- Dumping data for table `usuario`
 --
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES ('sadaga2922','','Saul','Garcia','Medina','Gabriela Mistral',16,12,'Villa Centroamericana','TlÃ¡huac','TlÃ¡huac','DF','CDMX',13278,'5539623586','hola'),('sss','','sss','sss','sss','sss',15,12,'sss','sss','sss','sss','sss',1111,'1111','sjaja');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -156,4 +145,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-07 21:07:53
+-- Dump completed on 2019-11-11 22:28:36
