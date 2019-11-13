@@ -11,28 +11,9 @@ Del mas oscuro al mas claro
     Author     : gamma
 */
 
-html{
-    background: #d5f8b2;
-    font-family: "Roboto";
-    font-size: 17px;
-}
-
 h4{
     margin: 0;
     margin-bottom: -1em;
-}
-
-header{
-    background: #346d6b;
-    border-radius: 5px;
-    height: 30%;
-}
-
-a{
-    color: #ffffff;
-    font-size: 1.9em;
-    text-decoration: none;
-    
 }
 
 .filter_by{
@@ -92,10 +73,4 @@ input,button{
     -o-transform: sclae(1.1);
     -ms-transform: scale(1.1);
     transform: scale(1.1);
-}
-
-.view_cart{
-    float:right;
-    margin-right: 15px;
-    border-radius: 50%;
 }

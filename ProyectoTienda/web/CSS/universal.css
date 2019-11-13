@@ -1,0 +1,23 @@
+html{
+    background: #d5f8b2;
+    font-family: "Roboto";
+    font-size: 17px;
+}
+
+header{
+    background: #346d6b;
+    border-radius: 5px;
+    height: 30%;
+}
+
+a{
+    color: #ffffff;
+    font-size: 1.9em;
+    text-decoration: none;    
+}
+
+.view_cart{
+    float:right;
+    margin-right: 15px;
+    border-radius: 50%;
+}

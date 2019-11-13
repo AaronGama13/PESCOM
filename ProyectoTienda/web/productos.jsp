@@ -31,6 +31,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="CSS/productos.css">
+        <link rel="stylesheet" href="CSS/universal.css">
     </head>
     <script type="text/javascript">
         function agregar_carrito()
@@ -50,6 +51,7 @@
             %>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
             <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="50" height="50"></a>
+            <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="50" height="50"></a>
         </header>
         <h1>Productos disponibles</h1>
         <div class="filter_by">        
@@ -79,11 +81,21 @@
                     out.print("<div class='product-container'>");
                         out.print("<h4>"+p.getNombre()+"</h4><br><br>");
                         out.print("<img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ><br><br>");
-                        out.print("$ "+p.getPrecio()+" mxn<br><br>");
-                        out.print("<a href='ServletCarrito?id="+p.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br><br>");
-                        out.print("<button class='detail_btn'>Ver detalles</button>");
+                        out.print("$ "+p.getPrecio()+" mxn<br>");
+                        /*
+                        NOTA:
+                        SE DEBE VERIFICAR LOS PRIVILEGIOS DEL USUARIO ANTES DE IMPRIMIR LAS DOS SIGUIENTES LINEAS DE CODIGO
+                        SI ES USUARIO ADMIN SE MUESTRAN LAS SIGUIENTES LÍNEAS
+                        out.print(p.getStock()+" unidades disponibles");
+                        out.print("<a href='editar_producto.jsp'><button>Editar producto</button></a>");
+                        */
+                        out.print("<a href='ServletCarrito?id="+p.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
+                        out.print("<a href='detalles.jsp?sku="+p.getId()+"'><button class='detail_btn'>Ver detalles</button></a>");
                     out.print("</div>");
                 }
+                /*
+                    SI EL USUARIO ES ADMIN DESCOMENTAR ESTAS LINEAS
+                */
             }catch(Exception e){
                 System.out.println("ERROR (productos.jsp): "+e);
                 e.printStackTrace();
