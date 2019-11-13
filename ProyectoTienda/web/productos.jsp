@@ -10,6 +10,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Modelos.Producto"%>
 <%@page import="Database.Sentencias"%>
+<%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="Database.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -53,21 +54,27 @@
         <h1>Productos disponibles</h1>
         <div class="filter_by">        
             <h3>Filtrar por:
-                <select>
-                        <option>Todos</option>
-                        <option>Imágenes</option>
-                        <option>Libros</option>
-                        <option>Películas</option>
-                        <option>Música</option>
+                <form action="productos.jsp" method="post">
+                    <select name="filter" onchange="this.form.submit();" >
+                        <option value="N">Todos</option>
+                        <option value='I'>Imágenes</option>
+                        <option value="L">Libros</option>
+                        <option value="P">Películas</option>
+                        <option value="M">Música</option>
                     </select>
-
+                </form>
             </h3>
-        </div><br><br><br><br><br>
+        </div><br><br><br><br><br>  
         <div>
             <%
             try{
                 Conexion con = new Conexion();
-                ArrayList<Producto> productos = Sentencias.readProductos('N');
+                Producto aux;
+                char tipo = 'N';
+                if(request.getParameter("filter")!=null){
+                    tipo = request.getParameter("filter").charAt(0);
+                }
+                ArrayList<Producto> productos = Sentencias.readProductos(tipo);
                 for(Producto p : productos){
                     out.print("<div class='product-container'>");
                         out.print("<h4>"+p.getNombre()+"</h4><br><br>");
@@ -78,9 +85,13 @@
                     out.print("</div>");
                 }
             }catch(Exception e){
-                System.out.println("ERROR"+e);
+                System.out.println("ERROR (productos.jsp): "+e);
+                e.printStackTrace();
             }
             %>
+        </div>
+        <div class="product-detail">
+            <h3></h3>
         </div>
     </center>
     </body>
