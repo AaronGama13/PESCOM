@@ -44,9 +44,11 @@ a{
     display: inline-block;
     background: #ade79a;
     border-radius: 5px;
-    padding: 2rem;
-    margin: 30px;
+    padding: 1rem;
+    margin-top: 30px;
+    margin-right: 20px;
     font-size: 20px;
+    width: 20%;
 }
 
 select{
