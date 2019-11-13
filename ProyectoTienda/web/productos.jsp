@@ -42,11 +42,13 @@
         <header>
             <%
                 if(sesionOK.getAttribute("usuario") == null){
-                    //response.sendRedirect("index.jsp");
+                    response.sendRedirect("index.jsp");
+                }else{
+                    out.print(username);
                 }
             %>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
-            <img class='view_cart' src="IMG/cart.jpg" width="50" height="50">
+            <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="50" height="50"></a>
         </header>
         <h1>Productos disponibles</h1>
         <div class="filter_by">        
@@ -68,11 +70,10 @@
                 ArrayList<Producto> productos = Sentencias.readProductos('N');
                 for(Producto p : productos){
                     out.print("<div class='product-container'>");
-                        out.print("<form action=\"ServletCarrito?accion=agregar\" method=\"POST\">");
-                        out.print("<h4>"+p.getNombre()+"</h4><input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"><br><br>");
+                        out.print("<h4>"+p.getNombre()+"</h4><br><br>");
                         out.print("<img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ><br><br>");
                         out.print("$ "+p.getPrecio()+" mxn<br><br>");
-                        out.print("<input class='add_cart' type = 'submit' value = \"Agregar al carrito\" " + "onclick=\"agregar_carrito()\"><br><br>");
+                        out.print("<a href='ServletCarrito?id="+p.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br><br>");
                         out.print("<button class='detail_btn'>Ver detalles</button>");
                     out.print("</div>");
                 }

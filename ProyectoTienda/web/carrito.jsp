@@ -41,13 +41,10 @@
                     out.print("<table>");
                     for(Producto p : Carrito){
                         out.print("<tr>");
-                        //out.print("<form action= \"ServletCarrito?accion=agregar\" method=\"POST\" >");
                         out.print("<td>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></td>");
                         out.print("<td> <img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ></td>");
                         out.print("<td>" + p.getPrecio() + "</td>");
-                        //out.print("</form>");
                         out.print("</tr>");
-
                     }
                     out.print("</table>");
                 }catch(Exception e){

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class Sentencias {
     
-    private static final String INSERT_USER = "INSERT INTO comprador VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SELECT_USERNAME = "SELECT * FROM Comprador where username=? and  pass=?";
+    private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
