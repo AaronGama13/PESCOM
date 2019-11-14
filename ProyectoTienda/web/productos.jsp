@@ -19,10 +19,10 @@
     HttpSession sesionOK = request.getSession();   
     String username = "";
     ArrayList<Producto> Carrito = new ArrayList<Producto>();
-    if(sesionOK.getAttribute("usuario") != null){
+    /*if(sesionOK.getAttribute("usuario") != null){
         username = (String) sesionOK.getAttribute("usuario");
         Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
-    }
+    }*/
     %>
 
 <!DOCTYPE html>
@@ -43,15 +43,15 @@
     <center>
         <header>
             <%
-                if(sesionOK.getAttribute("usuario") == null){
+                /*if(sesionOK.getAttribute("usuario") == null){
                     response.sendRedirect("index.jsp");
                 }else{
                     out.print(username);
-                }
+                }*/
             %>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
-            <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="50" height="50"></a>
-            <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="50" height="50"></a>
+            <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
+            <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
         </header>
         <h1>Productos disponibles</h1>
         <div class="filter_by">        

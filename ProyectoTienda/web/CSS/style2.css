@@ -13,6 +13,7 @@ and open the template in the editor.
 
 html {
   overflow-y: scroll;
+  background: #ade79a;
   
 }
 
@@ -96,11 +97,12 @@ img:hover{
   transition: .5s ease;
 }
 .tab-group li a:hover {
-  background: #179b77;
-  color: #ffffff;
+  background: #ade79a;
+  color: #ffffff;  
+  border: 1px solid white;
 }
 .tab-group .active a {
-  background: #1ab188;
+  background: #ade79a;
   color: #ffffff;
 }
 
@@ -129,7 +131,7 @@ label {
 }
 label .req {
   margin: 2px;
-  color: #1ab188;
+  color: #ade79a;
 }
 
 label.active {
@@ -162,11 +164,11 @@ input, textarea {
 }
 input:focus, textarea:focus {
   outline: 0;
-  border-color: #1ab188;
+  border-color: #ade79a;
 }
 
 textarea {
-  border: 2px solid #a0b3b0;
+  border: 2px solid #ade79a;
   resize: vertical;
 }
 
@@ -198,14 +200,15 @@ textarea {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #ade79a;
   color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
 .button:hover, .button:focus {
-  background: #179b77;
+  background: #ade79a;
+  
 }
 
 .button-block {
