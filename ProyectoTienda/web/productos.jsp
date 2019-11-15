@@ -87,15 +87,12 @@
                         /*
                         NOTA:
                         SE DEBE VERIFICAR LOS PRIVILEGIOS DEL USUARIO ANTES DE IMPRIMIR LAS DOS SIGUIENTES LINEAS DE CODIGO
-                        SI ES USUARIO ADMIN SE MUESTRAN LAS SIGUIENTES LÍNEAS*/
-                        if(sesionOK.getAttribute("priv").equals("a")){
+                        SI ES USUARIO ADMIN SE MUESTRAN LAS SIGUIENTES LÍNEAS                        
                         out.print(p.getStock()+" unidades disponibles");
-                        out.print("<a href='editar_producto.jsp'><button>Editar producto</button></a>");
-                        
-                        } else if(!sesionOK.getAttribute("priv").equals("a")){
+                        out.print("<a href='editar_producto.jsp'><button>Editar producto</button></a>"); */                                               
                         out.print("<a href='ServletCarrito?id="+p.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
                         out.print("<a href='detalles.jsp?sku="+p.getId()+"'><button class='detail_btn'>Ver detalles</button></a>");
-                        }
+                        
                     out.print("</div>");
                 }
                 /*
