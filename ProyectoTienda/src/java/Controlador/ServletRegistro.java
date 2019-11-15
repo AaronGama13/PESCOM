@@ -27,23 +27,24 @@ public class ServletRegistro extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            String [] params = new String[15];
+            String [] params = new String[16];
             
             params[0] = request.getParameter("username");
-            params[1] = request.getParameter("np");
-            params[2] = request.getParameter("ap");
-            params[3] = request.getParameter("am");
-            params[4] = request.getParameter("calle");
-            params[5] = request.getParameter("noExt");
-            params[6] = request.getParameter("noInt");
-            params[7] = request.getParameter("col");
-            params[8] = request.getParameter("alc");
-            params[9] = request.getParameter("muni");
-            params[10] = request.getParameter("edo");
-            params[11] = request.getParameter("cd");
-            params[12] = request.getParameter("cp");
-            params[13] = request.getParameter("tel");
-            params[14] = request.getParameter("pass");
+            params[1] = "a";
+            params[2] = request.getParameter("np");
+            params[3] = request.getParameter("ap");
+            params[4] = request.getParameter("am");
+            params[5] = request.getParameter("calle");
+            params[6] = request.getParameter("noExt");
+            params[7] = request.getParameter("noInt");
+            params[8] = request.getParameter("col");
+            params[9] = request.getParameter("alc");
+            params[10] = request.getParameter("muni");
+            params[11] = request.getParameter("edo");
+            params[12] = request.getParameter("cd");
+            params[13] = request.getParameter("cp");
+            params[14] = request.getParameter("tel");
+            params[15] = request.getParameter("pass");
             
             if(Sentencias.createUsuario(params) == 1){
                 response.sendRedirect("index.jsp");

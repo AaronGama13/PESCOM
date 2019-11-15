@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Sentencias {
     
-    private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?";    
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
@@ -24,20 +24,21 @@ public class Sentencias {
             Connection cnx = Conexion.getConexion();
             PreparedStatement ps = cnx.prepareStatement(INSERT_USER);
             ps.setString(1,params[0]); //username
-            ps.setString(2,params[1]); //np (nombre de pila)
-            ps.setString(3,params[2]); //ap (apellido paterno)
-            ps.setString(4,params[3]); //am (apellido materno)
-            ps.setString(5,params[4]); //calle 
-            ps.setInt(6,Integer.parseInt(params[5])); //no. Exterior
-            ps.setInt(7,Integer.parseInt(params[6])); //no. Interior
-            ps.setString(8,params[7]); //col 
-            ps.setString(9,params[8]); //alc (alcaldia)
-            ps.setString(10,params[9]); //muni (municipio)
-            ps.setString(11,params[10]); //edo
-            ps.setString(12,params[11]); //cd (ciudad)
-            ps.setInt(13,Integer.parseInt(params[12]));
-            ps.setString(14, params[13]); //numero de telefono
-            ps.setString(15,params[14]); //password         
+            ps.setString(2, params[1]);//privilegio
+            ps.setString(3,params[2]); //np (nombre de pila)
+            ps.setString(4,params[3]); //ap (apellido paterno)
+            ps.setString(5,params[4]); //am (apellido materno)
+            ps.setString(6,params[5]); //calle 
+            ps.setInt(7,Integer.parseInt(params[6])); //no. Exterior
+            ps.setInt(8,Integer.parseInt(params[7])); //no. Interior
+            ps.setString(9,params[8]); //col 
+            ps.setString(10,params[9]); //alc (alcaldia)
+            ps.setString(11,params[10]); //muni (municipio)
+            ps.setString(12,params[11]); //edo
+            ps.setString(13,params[12]); //cd (ciudad)
+            ps.setInt(14,Integer.parseInt(params[13]));
+            ps.setString(15, params[14]); //numero de telefono
+            ps.setString(16,params[15]); //password         
             return ps.executeUpdate();
         }catch(Exception error){
             System.out.println("ERROR (Sentencias.createUsuario): "+error);
