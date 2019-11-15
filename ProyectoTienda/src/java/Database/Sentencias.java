@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?";
+    private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?"
+            + "and priv = 'a' or priv = 'u'";
     private static final String SELECT_PRIV = "SELECT priv FROM usuario where priv = 'a'";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
@@ -54,10 +55,10 @@ public class Sentencias {
          try {             
              pst = Conexion.getConexion().prepareStatement(SELECT_USERNAME);
              pst.setString(1, username);
-             pst.setString(2,pass);
-             pst.setString(3, priv);
+             pst.setString(2,pass);             
              rs = pst.executeQuery();
-             if (rs.next()) {                   
+             if (rs.next()) {      
+                 rs.getString("priv");
                  return true;                   
              }
         } catch (Exception e) {
