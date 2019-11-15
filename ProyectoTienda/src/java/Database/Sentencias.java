@@ -14,6 +14,7 @@ public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?";
+    private static final String SELECT_PRIV = "SELECT priv FROM usuario WHERE username = ? and pass = ?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
@@ -46,13 +47,33 @@ public class Sentencias {
         }
     }
     
+    public static String privilegio(String username, String pass){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String priv;
+        try {
+            ps = Conexion.getConexion().prepareStatement(SELECT_PRIV);
+            ps.setString(1, username);
+            ps.setString(2, pass);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                priv = rs.getNString("priv");
+                return priv;
+            }            
+        } catch (SQLException e) {
+            System.out.println("Hubo una excepcion en sentencias en priviegio" + e);
+            return "No se encontro el privilegio";
+        }
+        return "No se encontro el privilegio";
+    }
+    
     public static boolean autenticacion(String username, String pass){
         PreparedStatement pst= null;
         ResultSet rs= null;
          try {             
              pst = Conexion.getConexion().prepareStatement(SELECT_USERNAME);
              pst.setString(1, username);
-             pst.setString(2,pass);
+             pst.setString(2,pass);             
              rs = pst.executeQuery();
              if (rs.absolute(1)) {
                 return true;               

@@ -38,6 +38,7 @@ public class ServletLoguin extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
             String pass = request.getParameter("pass");
+            String priv;
             String accion = request.getParameter("accion");
             
             if (accion.equals("loguin")) {
@@ -48,6 +49,7 @@ public class ServletLoguin extends HttpServlet {
                     if (Sentencias.autenticacion(username, pass)) {
                         HttpSession sesion = request.getSession();
                         sesion.setAttribute("usuario", username);
+                        sesion.setAttribute("priv", Sentencias.privilegio(username, pass));
                         sesion.setAttribute("Carrito", null);
                         response.sendRedirect("productos.jsp");
                     } else {
