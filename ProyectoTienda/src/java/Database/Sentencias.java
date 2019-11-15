@@ -58,8 +58,8 @@ public class Sentencias {
              pst.setString(2,pass);             
              rs = pst.executeQuery();
              if (rs.next()) {      
-                 rs.getString("priv");
-                 return true;                   
+                rs.getString("priv");
+                return true;                   
              }
         } catch (Exception e) {
               System.err.println("Error "+e);

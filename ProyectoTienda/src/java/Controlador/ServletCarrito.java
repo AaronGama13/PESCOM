@@ -24,15 +24,28 @@ public class ServletCarrito extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
+            
             int idProducto = Integer.parseInt(request.getParameter("id"));
+            String accion = request.getParameter("accion");
             HttpSession sesion = request.getSession();
             ArrayList<Producto> Carrito = (ArrayList<Producto>) sesion.getAttribute("Carrito");
-            Producto aux = Sentencias.readProductoId(idProducto);
-            if(Carrito == null)
-                Carrito = new ArrayList<Producto>();
-            Carrito.add(aux);
-            sesion.setAttribute("Carrito", Carrito);
-            response.sendRedirect("productos.jsp");
+            
+            if(accion.equals("agregar")){
+                Producto aux = Sentencias.readProductoId(idProducto);
+                if(Carrito == null)
+                    Carrito = new ArrayList<Producto>();
+                Carrito.add(aux);
+                sesion.setAttribute("Carrito", Carrito);
+                response.sendRedirect("productos.jsp");
+            }
+            else if(accion.equals("quitar")){
+                //Producto aux = Sentencias.readProductoId(idProducto);
+                Carrito.remove(idProducto);
+                if(Carrito == null)
+                    Carrito = new ArrayList<Producto>();
+                sesion.setAttribute("Carrito", Carrito);
+                response.sendRedirect("carrito.jsp");
+            }
         } catch(Exception e){
             System.out.println("ERROR (Sentencias.readProductos): "+e);
             e.printStackTrace();

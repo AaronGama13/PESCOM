@@ -82,17 +82,16 @@
                 for(Producto p : productos){
                     out.print("<div class='product-container'>");
                         out.print("<h4>"+p.getNombre()+"</h4><br><br>");
-                        out.print("<img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ><br><br>");
-                        out.print("$ "+p.getPrecio()+" mxn<br>");
-                        /*
-                        NOTA:
-                        SE DEBE VERIFICAR LOS PRIVILEGIOS DEL USUARIO ANTES DE IMPRIMIR LAS DOS SIGUIENTES LINEAS DE CODIGO
-                        SI ES USUARIO ADMIN SE MUESTRAN LAS SIGUIENTES LÍNEAS                        
-                        out.print(p.getStock()+" unidades disponibles");
-                        out.print("<a href='editar_producto.jsp'><button>Editar producto</button></a>"); */                                               
-                        out.print("<a href='ServletCarrito?id="+p.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
-                        out.print("<a href='detalles.jsp?sku="+p.getId()+"'><button class='detail_btn'>Ver detalles</button></a>");
-                        
+                    out.print("<img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ><br><br>");
+                    out.print("$ "+p.getPrecio()+" mxn<br>");
+                    /*
+                    NOTA:
+                    SE DEBE VERIFICAR LOS PRIVILEGIOS DEL USUARIO ANTES DE IMPRIMIR LAS DOS SIGUIENTES LINEAS DE CODIGO
+                    SI ES USUARIO ADMIN SE MUESTRAN LAS SIGUIENTES LÍNEAS                        
+                    out.print(p.getStock()+" unidades disponibles");
+                    out.print("<a href='editar_producto.jsp'><button>Editar producto</button></a>"); */                                               
+                    out.print("<a href='ServletCarrito?accion=agregar&id="+p.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
+                    out.print("<a href='detalles.jsp?sku="+p.getId()+"'><button class='detail_btn'>Ver detalles</button></a>");
                     out.print("</div>");
                 }
                 /*

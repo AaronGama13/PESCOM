@@ -39,13 +39,16 @@
             <h1>Mi carrito de compras</h1>
             <%
                 try{
+                    int i = 0;
                     out.print("<table>");
                     for(Producto p : Carrito){
                         out.print("<tr>");
                         out.print("<td>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></td>");
                         out.print("<td> <img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ></td>");
                         out.print("<td>" + p.getPrecio() + "</td>");
+                        out.print("<td><a href='ServletCarrito?accion=quitar&id="+i+"'><button class='add_cart' onclick=\"quitar_carrito();\">Quitar del carrito</button></a></td>");
                         out.print("</tr>");
+                        i++;
                     }
                     out.print("</table>");
                 }catch(Exception e){
