@@ -19,10 +19,12 @@
             <%
                 HttpSession sesionOK = request.getSession();
                 String username = (String) sesionOK.getAttribute("usuario");
+                String priv = (String) sesionOK.getAttribute("priv");
                 if(sesionOK.getAttribute("usuario") == null){
                     response.sendRedirect("index.jsp");
                 }else{
                     out.print(username);
+                    out.print(priv);
                 }
             %>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>

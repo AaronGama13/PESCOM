@@ -37,8 +37,8 @@ public class ServletLoguin extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
-            String pass = request.getParameter("pass");
-            String priv;
+            String pass = request.getParameter("pass");            
+            String priv = null;
             String accion = request.getParameter("accion");
             
             if (accion.equals("loguin")) {
@@ -46,11 +46,12 @@ public class ServletLoguin extends HttpServlet {
                     request.setAttribute("msg", "Llena todos los campos");
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 } else {
-                    if (Sentencias.autenticacion(username, pass)) {
+                    if (Sentencias.autenticacion(username, pass, priv)) {
                         HttpSession sesion = request.getSession();
-                        sesion.setAttribute("usuario", username);                        
+                        sesion.setAttribute("usuario", username); 
+                        sesion.setAttribute("priv", priv);
                         sesion.setAttribute("Carrito", null);
-                        response.sendRedirect("productos.jsp");
+                        response.sendRedirect("productos.jsp");                        
                     } else {
                         request.setAttribute("msg", "Usuario o contraseña incorrectos");
                         request.getRequestDispatcher("index.jsp").forward(request, response);
