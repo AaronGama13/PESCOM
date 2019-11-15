@@ -48,8 +48,7 @@ public class ServletLoguin extends HttpServlet {
                 } else {
                     if (Sentencias.autenticacion(username, pass)) {
                         HttpSession sesion = request.getSession();
-                        sesion.setAttribute("usuario", username);
-                        sesion.setAttribute("priv", Sentencias.privilegio(username, pass));
+                        sesion.setAttribute("usuario", username);                        
                         sesion.setAttribute("Carrito", null);
                         response.sendRedirect("productos.jsp");
                     } else {
