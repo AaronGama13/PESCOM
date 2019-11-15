@@ -17,6 +17,7 @@ public class Sentencias {
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
+    private static final String DELETE_USERNAME = "DELETE FROM usuario WHERE username = ? and pass = ?";
     
     public static int createUsuario(String [] params){
         try{
@@ -121,5 +122,38 @@ public class Sentencias {
             System.out.println("ERROR (Sentencias.readProductos): "+error);
         }
         return aux;
+    }
+    
+    public static boolean borrarUsuario(String username, String pass) {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = Conexion.getConexion().prepareStatement(SELECT_USERNAME);
+            ps.setString(1, username);
+            ps.setString(2, pass);
+            rs = ps.executeQuery();
+            if (rs.absolute(1)) {
+                ps = Conexion.getConexion().prepareStatement(DELETE_USERNAME);
+                ps.setString(1, username);
+                ps.setString(2, pass);
+                if (ps.executeUpdate() == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                System.out.println("Error perro, en sentencias " + e);
+            }
+        }
+
+        return true;
     }
 }
