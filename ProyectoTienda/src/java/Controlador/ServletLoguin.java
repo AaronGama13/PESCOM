@@ -62,6 +62,19 @@ public class ServletLoguin extends HttpServlet {
                 sesion.invalidate();
                 response.sendRedirect("index.jsp");
             }
+            else if(accion.equals("borrar")) {
+                if (username.isEmpty() || pass.isEmpty()) {
+                    request.setAttribute("msg", "Llena todos los campos");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                } else {
+                    if(Sentencias.borrarUsuario(username, pass)) {
+                        HttpSession sesion = request.getSession();
+                        request.getSession().removeAttribute("usuario");
+                        sesion.invalidate();
+                        response.sendRedirect("index.jsp");
+                    }
+                }
+            }
         }
     }
 
