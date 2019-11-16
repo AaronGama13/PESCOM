@@ -17,7 +17,7 @@ public class Sentencias {
     private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?"
             + "and priv = 'a' or priv = 'u'";
-    private static final String SELECT_PRIV = "SELECT priv FROM usuario where username = ? and pass = ?";
+    private static final String SELECT_PRIV = "SELECT priv FROM usuario where username = ?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
@@ -77,14 +77,14 @@ public class Sentencias {
         return false;
     }
     
-    public static String privilegio(String username, String pass){
+    public static String privilegio(String username){
         PreparedStatement pst= null;
         ResultSet rs= null;
         String priv;
          try {             
-             pst = Conexion.getConexion().prepareStatement(SELECT_USERNAME);
+             pst = Conexion.getConexion().prepareStatement(SELECT_PRIV);
              pst.setString(1, username);
-             pst.setString(2,pass);             
+             //pst.setString(2,pass);             
              rs = pst.executeQuery();
              if (rs.next()) {                      
                 priv = (String) rs.getObject("priv");

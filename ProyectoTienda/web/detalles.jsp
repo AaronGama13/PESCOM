@@ -23,8 +23,7 @@
                 if(sesionOK.getAttribute("usuario") == null){
                     response.sendRedirect("index.jsp");
                 }else{
-                    out.print(username);
-                    out.print(priv);
+                    out.print(username);                    
                 }
             %>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
