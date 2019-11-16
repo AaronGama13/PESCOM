@@ -4,6 +4,9 @@
     Author     : gamma
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Modelos.Producto"%>
+<%@page import="Database.Sentencias"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +18,26 @@
     <center>
         <h1>Reportes</h1>
         <div class="container">
-            <div class="container-fluid"><h2>Productos con bajo inventario</h2></div>
+            <div class="container-fluid">
+                <h2>Productos con bajo inventario</h2>
+                <table>
+                    <tr>
+                        <td>Nombre del producto</td>
+                        <td>Unidades disponibles</td>
+                        <td>Añadir unidades</td>
+                    </tr>
+                <%
+                  ArrayList<Producto> plowstock = Sentencias.readBajoStock();
+                  for(Producto p: plowstock){
+                      out.print("<tr>");
+                      out.print("<td>"+p.getNombre()+"</td>");
+                      out.print("<td>"+p.getStock()+"</td>");
+                      out.print("<td><a href='editar_producto.jsp?sku="+p.getId()+"'><button>Añadir</button></a></td>");
+                      out.print("</tr>");
+                  }
+                %>
+                </table>
+            </div>
             <div class="container-fluid"><h2>Ventas</h2></div>
         </div>
     </center>

@@ -9,6 +9,8 @@ package Database;
 import Modelos.Producto;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Sentencias {
     
@@ -20,6 +22,7 @@ public class Sentencias {
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
     private static final String DELETE_USERNAME = "DELETE FROM usuario WHERE username = ? and pass = ?";
+    private static final String SELECT_LOW_STOCK_PRODUCT = "SELECT * FROM Producto WHERE stock<5";
     
     public static int createUsuario(String [] params){
         try{
@@ -159,5 +162,29 @@ public class Sentencias {
         }
 
         return true;
+    }
+    
+    public static ArrayList<Producto> readBajoStock(){
+        ArrayList<Producto> array = new ArrayList();
+        Producto aux;
+        try {
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(SELECT_LOW_STOCK_PRODUCT);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                aux = new Producto(
+                        rs.getInt("idProducto"),
+                        rs.getString("nom"),
+                        rs.getDouble("precio"), //precio
+                        rs.getInt("stock"), //stock
+                        rs.getBlob("foto"), //foto
+                        rs.getString("detalles") //detalles
+                );
+                array.add(aux);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR (Sentencias.readBajoStock): "+ex);
+            ex.printStackTrace();
+        }
+        return array;
     }
 }
