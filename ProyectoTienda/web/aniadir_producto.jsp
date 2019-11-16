@@ -22,17 +22,17 @@
     </head>
     <body>
     <center><h1>Añadir producto</h1></center>
-        <form action="ServletAniadir" method="POST">
+    <form action="ServletAniadir" method="POST" enctype="multipart/form-data">
             <center>
                 <input type="text" name="nom" placeholder="Nombre del producto"><br><br>
                 <input type="number" name="precio" step="0.01" placeholder="Precio"><br><br>
                 <input type="number" name="stock" placeholder="Cantidad"><br><br>
                 <input type="text" name="tipo" placeholder="Tipo de producto"><br><br>
                 <label>Imagen</label><br><br>
-                <input type="file" name="foto"><br><br>
+                <input type="file" name="foto" required><br><br>
                 <textarea spellcheck="true" name="detalles" placeholder="Detalles"></textarea><br><br>
                 <label>Añadir</label><br><br>
-                <input type="submit" name="aniadir">
+                <input type="submit">
             </center>
         </form>
     </body>

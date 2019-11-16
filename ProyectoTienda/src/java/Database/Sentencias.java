@@ -7,6 +7,7 @@
 
 package Database;
 import Modelos.Producto;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,6 +24,8 @@ public class Sentencias {
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
     private static final String DELETE_USERNAME = "DELETE FROM usuario WHERE username = ? and pass = ?";
     private static final String SELECT_LOW_STOCK_PRODUCT = "SELECT * FROM Producto WHERE stock<5";
+    private static final String INSERT_PRODUCTO = "INSERT INTO producto (nom, precio, stock, tipo, foto, detalles)"
+            + "VALUES (?, ?, ?, ?, ?, ?)";
     
     public static int createUsuario(String [] params){
         try{
@@ -213,5 +216,21 @@ public class Sentencias {
             ex.printStackTrace();
         }
         return array;
+    }
+    
+    public static int insertarProducto(String [] params, InputStream foto) {
+        try {
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(INSERT_PRODUCTO);
+            ps.setString(1, params[0]);            
+            ps.setDouble(2, Double.parseDouble(params[1]));
+            ps.setInt(3, Integer.parseInt(params[2]));
+            ps.setString(4, params[3]);
+            ps.setBlob(5, foto);
+            ps.setString(6, params[4]);
+            return ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Fallo insertar producto " + ex);
+            return 10;
+        }                
     }
 }
