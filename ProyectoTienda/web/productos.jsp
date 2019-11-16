@@ -95,9 +95,9 @@
                             out.print("</div>");
                         }
                     }
-                /*
-                    SI EL USUARIO ES ADMIN DESCOMENTAR ESTAS LINEAS
-                */
+                    if (sesionOK.getAttribute("priv").equals("a") && !sesionOK.getAttribute("priv").equals("u")) {
+                        out.print("<a href='aniadir_producto.jsp'>Añadir producto</a>");
+                    }
             }catch(Exception e){
                 System.out.println("ERROR (productos.jsp): "+e);
                 e.printStackTrace();
