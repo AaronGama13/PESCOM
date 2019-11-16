@@ -17,7 +17,7 @@ public class Sentencias {
     private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?"
             + "and priv = 'a' or priv = 'u'";
-    private static final String SELECT_PRIV = "SELECT priv FROM usuario where priv = 'a'";
+    private static final String SELECT_PRIV = "SELECT priv FROM usuario where username = ? and pass = ?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
     private static final String SELECT_PRODUCTOS_TIPO = "SELECT * FROM Producto WHERE tipo=?";
@@ -52,7 +52,7 @@ public class Sentencias {
         }
     }        
     
-    public static boolean autenticacion(String username, String pass, String priv){
+    public static boolean autenticacion(String username, String pass){
         PreparedStatement pst= null;
         ResultSet rs= null;
          try {             
@@ -60,8 +60,7 @@ public class Sentencias {
              pst.setString(1, username);
              pst.setString(2,pass);             
              rs = pst.executeQuery();
-             if (rs.next()) {      
-                rs.getString("priv");
+             if (rs.next()) {                      
                 return true;                   
              }
         } catch (Exception e) {
@@ -76,6 +75,34 @@ public class Sentencias {
             }
         }
         return false;
+    }
+    
+    public static String privilegio(String username, String pass){
+        PreparedStatement pst= null;
+        ResultSet rs= null;
+        String priv;
+         try {             
+             pst = Conexion.getConexion().prepareStatement(SELECT_USERNAME);
+             pst.setString(1, username);
+             pst.setString(2,pass);             
+             rs = pst.executeQuery();
+             if (rs.next()) {                      
+                priv = (String) rs.getObject("priv");
+                return priv;
+             }
+        } catch (Exception e) {
+              System.err.println("Error "+e);
+        }finally{
+            try {
+                if(Conexion.getConexion()!=null) //Conexion.getConexion().close();
+                if(pst!=null) pst.close();
+                if(rs!=null) rs.close();
+            } catch (Exception e) {
+              System.err.println("Error "+e);
+              return "no sirvio jasjasj";
+            }
+        }
+        return "No sirvio jajsjas";
     }
     
     public static ArrayList<Producto> readProductos(char tipo){

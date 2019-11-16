@@ -38,7 +38,7 @@ public class ServletLoguin extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
             String pass = request.getParameter("pass");            
-            String priv = null;
+            String priv = Sentencias.privilegio(username, pass);
             String accion = request.getParameter("accion");
             
             if (accion.equals("loguin")) {
@@ -46,7 +46,7 @@ public class ServletLoguin extends HttpServlet {
                     request.setAttribute("msg", "Llena todos los campos");
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 } else {
-                    if (Sentencias.autenticacion(username, pass, priv)) {
+                    if (Sentencias.autenticacion(username, pass)) {
                         HttpSession sesion = request.getSession();
                         sesion.setAttribute("usuario", username); 
                         sesion.setAttribute("priv", priv);
