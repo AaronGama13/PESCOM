@@ -21,6 +21,7 @@
     String priv = "";
     ArrayList<Producto> Carrito = new ArrayList<Producto>();
     if(sesionOK.getAttribute("usuario") != null){
+        //RECUPERAMOS LOS DATOS DE LA SESIÓN
         username = (String) sesionOK.getAttribute("usuario");
         priv = (String) sesionOK.getAttribute("priv");
         Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
@@ -44,13 +45,6 @@
     <body>
     <center>
         <header>
-            <%
-                /*if(sesionOK.getAttribute("usuario") == null){
-                    response.sendRedirect("index.jsp");
-                }else{
-                    out.print(username);
-                }*/
-            %>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
             <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
             <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
@@ -80,24 +74,23 @@
                 }
                 ArrayList<Producto> productos = Sentencias.readProductos(tipo);
                 for (Producto p : productos) {
-                        out.print("<div class='product-container'>");
+                    out.print("<div class='product-container'>");
                         out.print("<h4>" + p.getNombre() + "</h4><br><br>");
                         out.print("<img id='id_img' src='data:image/jpg;base64," + p.getFoto() + "' width='50' height='50' ><br><br>");
                         out.print("$ " + p.getPrecio() + " mxn<br>");
-
-                        if (sesionOK.getAttribute("priv").equals("a") && !sesionOK.getAttribute("priv").equals("u")) {
+                        if (priv.equals("A")) {
                             out.print(p.getStock() + " unidades disponibles");
-                            out.print("<a href='editar_producto.jsp'><button>Editar producto</button></a>");
+                            out.print("<a href='detalles.jsp?sku="+p.getId()+"'><button>Editar producto</button></a>");
                             out.print("</div>");
                         } else {
                             out.print("<a href='ServletCarrito?accion=agregar&id=" + p.getId() + "'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
                             out.print("<a href='detalles.jsp?sku=" + p.getId() + "'><button class='detail_btn'>Ver detalles</button></a>");
                             out.print("</div>");
                         }
-                    }
-                    if (sesionOK.getAttribute("priv").equals("a") && !sesionOK.getAttribute("priv").equals("u")) {
-                        out.print("<a href='aniadir_producto.jsp'>Añadir producto</a>");
-                    }
+                }
+                if (priv.equals("A")) {
+                    out.print("<div class='product-container'><h4>Añadir producto</h4><br><br><a href='aniadir_producto.jsp'><img src='IMG/add.png' width='80' height='80'></a></div>");
+                }   
             }catch(Exception e){
                 System.out.println("ERROR (productos.jsp): "+e);
                 e.printStackTrace();

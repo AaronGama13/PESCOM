@@ -67,14 +67,14 @@ public class Sentencias {
                 return true;                   
              }
         } catch (Exception e) {
-              System.err.println("Error "+e);
+              System.err.println("ERROR (Sentencias.autenticacion): "+e);
         }finally{
             try {
                 if(Conexion.getConexion()!=null) //Conexion.getConexion().close();
                 if(pst!=null) pst.close();
                 if(rs!=null) rs.close();
             } catch (Exception e) {
-              System.err.println("Error "+e);
+              System.err.println("ERROR (Sentencias.autenticacion): "+e);
             }
         }
         return false;
@@ -94,14 +94,14 @@ public class Sentencias {
                 return priv;
              }
         } catch (Exception e) {
-              System.err.println("Error "+e);
+              System.err.println("ERROR (Sentencias.privilegio): "+e);
         }finally{
             try {
                 if(Conexion.getConexion()!=null) //Conexion.getConexion().close();
                 if(pst!=null) pst.close();
                 if(rs!=null) rs.close();
             } catch (Exception e) {
-              System.err.println("Error "+e);
+              System.err.println("ERROR (Sentencias.privilegio): "+e);
               return "no sirvio jasjasj";
             }
         }
@@ -156,7 +156,7 @@ public class Sentencias {
             }
             return aux;
         }catch(Exception error){
-            System.out.println("ERROR (Sentencias.readProductos): "+error);
+            System.out.println("ERROR (Sentencias.readProductoId): "+error);
         }
         return aux;
     }
@@ -187,7 +187,7 @@ public class Sentencias {
             try {
                 ps.close();
             } catch (SQLException e) {
-                System.out.println("Error perro, en sentencias " + e);
+                System.out.println("ERROR (Sentencias.borrarUsuario): " + e);
             }
         }
 
@@ -229,7 +229,7 @@ public class Sentencias {
             ps.setString(6, params[4]);
             return ps.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Fallo insertar producto " + ex);
+            System.out.println("ERROR (Sentencias.insertarProducto): " + ex);
             return 10;
         }                
     }

@@ -13,6 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="CSS/universal.css">
+        <link rel="stylesheet" href="CSS/detalles.css">
     </head>
     <body>
         <header>
@@ -35,14 +36,15 @@
                 <%
                     int idProducto = Integer.parseInt(request.getParameter("sku"));
                     Producto aux = Sentencias.readProductoId(idProducto);
-                    out.print("<br><br><img id='id_img' src='data:image/jpg;base64,"+aux.getFoto()+"'><br>");
+                    out.print("<br><br><img id='id_img' src='data:image/jpg;base64,"+aux.getFoto()+"'><br><br>");
                     if(priv.equals("A")){
+                        out.print("<div class='details-container'>");
                         out.print("<form action='ServletModProd' method='POST'>");
-                        out.print("<h4>Cambiar imagen: </h4><input type='File' name='foto'>");
-                        out.print("<div>");
-                        out.print("<input name='nombre' type='text' value='"+aux.getNombre()+"'><br>");
-                        out.print("<input name='precio' type='number' value='"+aux.getPrecio()+"'> mxn<br>");
-                        out.print("<textarea name='detalles'>"+aux.getDetalles()+"</textarea>");
+                        out.print("<input name='id' type='hidden' value='"+idProducto+"'>");
+                        out.print("<label>Cambiar imagen:</label><input type='File' name='foto'><br><br>");
+                        out.print("<label>Cambiar nombre:</label><input name='nombre' type='text' value='"+aux.getNombre()+"'><br><br>");
+                        out.print("<label>Cambiar precio:</label><input name='precio' type='number' value='"+aux.getPrecio()+"'> mxn<br><br>");
+                        out.print("<label>Cambiar detalles:</label><br><textarea name='detalles'>"+aux.getDetalles()+"</textarea><br><br>");
                         out.print("<input type='submit' value='Modificar producto'>");
                         out.print("</div>");
                         out.print("</form>");
