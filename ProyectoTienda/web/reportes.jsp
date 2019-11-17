@@ -32,7 +32,7 @@
                       out.print("<tr>");
                       out.print("<td>"+p.getNombre()+"</td>");
                       out.print("<td>"+p.getStock()+"</td>");
-                      out.print("<td><a href='editar_producto.jsp?sku="+p.getId()+"'><button>Añadir</button></a></td>");
+                      out.print("<td><a href='detalles.jsp?sku="+p.getId()+"'><button>Añadir</button></a></td>");
                       out.print("</tr>");
                   }
                 %>

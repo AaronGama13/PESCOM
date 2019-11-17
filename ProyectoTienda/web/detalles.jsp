@@ -36,12 +36,25 @@
                     int idProducto = Integer.parseInt(request.getParameter("sku"));
                     Producto aux = Sentencias.readProductoId(idProducto);
                     out.print("<br><br><img id='id_img' src='data:image/jpg;base64,"+aux.getFoto()+"'><br>");
-                    out.print("<div>");
-                    out.print("<h4>"+aux.getNombre()+"</h4><br>");
-                    out.print("$ "+aux.getPrecio()+" mxn<br>");
-                    out.print("<h5>"+aux.getDetalles()+"</h5>");
-                    out.print("<a href='ServletCarrito?id="+aux.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
-                    out.print("</div>");
+                    if(priv.equals("A")){
+                        out.print("<form action='ServletModProd' method='POST'>");
+                        out.print("<h4>Cambiar imagen: </h4><input type='File' name='foto'>");
+                        out.print("<div>");
+                        out.print("<input name='nombre' type='text' value='"+aux.getNombre()+"'><br>");
+                        out.print("<input name='precio' type='number' value='"+aux.getPrecio()+"'> mxn<br>");
+                        out.print("<textarea name='detalles'>"+aux.getDetalles()+"</textarea>");
+                        out.print("<input type='submit' value='Modificar producto'>");
+                        out.print("</div>");
+                        out.print("</form>");
+                    }else{
+                        out.print("<br><br><img id='id_img' src='data:image/jpg;base64,"+aux.getFoto()+"'><br>");
+                        out.print("<div>");
+                        out.print("<h4>"+aux.getNombre()+"</h4><br>");
+                        out.print("$ "+aux.getPrecio()+" mxn<br>");
+                        out.print("<h5>"+aux.getDetalles()+"</h5>");
+                        out.print("<a href='ServletCarrito?id="+aux.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
+                        out.print("</div>");
+                    }
                 %>
             </div>
         </center>
