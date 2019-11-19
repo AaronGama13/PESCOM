@@ -41,20 +41,19 @@
                         out.print("<div class='details-container'>");
                         out.print("<form action='ServletModProd' method='POST'>");
                         out.print("<input name='id' type='hidden' value='"+idProducto+"'>");
-                        out.print("<label>Cambiar imagen:</label><input type='File' name='foto'><br><br>");
                         out.print("<label>Cambiar nombre:</label><input name='nombre' type='text' value='"+aux.getNombre()+"'><br><br>");
                         out.print("<label>Cambiar precio:</label><input name='precio' type='number' value='"+aux.getPrecio()+"'> mxn<br><br>");
+                        out.print("<label>Cambiar stock:</label><input name='stock' type='number' value='"+aux.getStock()+"'>unidades disponibles<br><br>");
                         out.print("<label>Cambiar detalles:</label><br><textarea name='detalles'>"+aux.getDetalles()+"</textarea><br><br>");
                         out.print("<input type='submit' value='Modificar producto'>");
                         out.print("</div>");
                         out.print("</form>");
                     }else{
-                        out.print("<br><br><img id='id_img' src='data:image/jpg;base64,"+aux.getFoto()+"'><br>");
                         out.print("<div>");
                         out.print("<h4>"+aux.getNombre()+"</h4><br>");
                         out.print("$ "+aux.getPrecio()+" mxn<br>");
                         out.print("<h5>"+aux.getDetalles()+"</h5>");
-                        out.print("<a href='ServletCarrito?id="+aux.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
+                        out.print("<a href='ServletCarrito?accion=agregar&id="+aux.getId()+"'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
                         out.print("</div>");
                     }
                 %>

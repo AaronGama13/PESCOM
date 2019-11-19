@@ -16,8 +16,18 @@
 <%
     //COMPROBAMOS QUE NO EXISTA UNA SESIÓN INICIADA PREVIAMENTE    
     HttpSession sesionOK = request.getSession();   
-    String username = (String) sesionOK.getAttribute("usuario");
-    ArrayList<Producto> Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");;
+    String username = null ,priv = null;
+    ArrayList<Producto> Carrito = null;
+    if(sesionOK.getAttribute("usuario")!=null){
+        username = (String) sesionOK.getAttribute("usuario");
+        priv = (String) sesionOK.getAttribute("priv");
+        Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
+    }
+    
+    if(priv.equals("A")){
+        response.sendRedirect("productos.jsp");
+        out.print("<script type='text/javascript'>alert('No tienes permiso para entrar al carrito');</script>");
+    }
     %>
 
 <!DOCTYPE html>
@@ -33,6 +43,7 @@
             <div>
                 <a href="productos.jsp">Productos</a>
                 <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
+                <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
             </div>
         </header>
         <div>

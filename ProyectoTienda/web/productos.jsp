@@ -46,8 +46,19 @@
     <center>
         <header>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
-            <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
-            <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
+                 <%
+                if(!priv.equals("A")){ %>
+                    <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
+                    <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
+                <%}
+                out.print("<form action='ServletLoguin' method='POST'>");
+                    out.print("<input name='username' type='hidden' value='"+username+"'>");
+                    out.print("<input name='pass' type='hidden' value='X'>");
+                    out.print("<input name='accion' type='hidden' value='cerrar'>");
+                    out.print("<input type='submit' value='Cerrar sesión'>");
+                out.print("</form>");
+                %>
+                    
         </header>
         <h1>Productos disponibles</h1>
         <div class="filter_by">        

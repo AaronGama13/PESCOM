@@ -26,6 +26,7 @@ public class Sentencias {
     private static final String SELECT_LOW_STOCK_PRODUCT = "SELECT * FROM Producto WHERE stock<5";
     private static final String INSERT_PRODUCTO = "INSERT INTO producto (nom, precio, stock, tipo, foto, detalles)"
             + "VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_PRODUCT_INFO = "UPDATE producto SET nom=?, precio=?, stock=?, detalles=? WHERE idProducto=?";
     
     public static int createUsuario(String [] params){
         try{
@@ -232,5 +233,21 @@ public class Sentencias {
             System.out.println("ERROR (Sentencias.insertarProducto): " + ex);
             return 10;
         }                
+    }
+    
+    public static int updateProductInfo(String nom, Double precio, int stock, String detalles, int id){
+        try{
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(UPDATE_PRODUCT_INFO);
+            ps.setString(1,nom);
+            ps.setDouble(2,precio);
+            ps.setInt(3,stock);
+            ps.setString(4,detalles);
+            ps.setInt(5, id);
+            return ps.executeUpdate();
+        }catch(Exception e){
+            System.out.println("ERROR (Sentencias.updateProductInfo): "+e);
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
