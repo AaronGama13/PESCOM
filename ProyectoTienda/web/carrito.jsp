@@ -18,10 +18,14 @@
     HttpSession sesionOK = request.getSession();   
     String username = null ,priv = null;
     ArrayList<Producto> Carrito = null;
+    String Tarjeta = "";
+    String Validar = "";
     if(sesionOK.getAttribute("usuario")!=null){
         username = (String) sesionOK.getAttribute("usuario");
         priv = (String) sesionOK.getAttribute("priv");
         Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
+        Tarjeta = (String) sesionOK.getAttribute("Tarjeta");
+        Validar = (String) sesionOK.getAttribute("Validar");
     }
     
     if(priv.equals("A")){
@@ -36,6 +40,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="CSS/universal.css">
+        <style type="text/css">
+            button{
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 10px;
+                margin: 0px;
+                background: grey;
+            }
+            button.visible{
+                background: #5cb85c; 
+            }
+            button.novisible{
+                background: #d9534f;
+            }
+        </style> 
+        <script>
+            var valortarjeta;
+        </script>
     </head>
     <body>
         <center>
@@ -50,22 +74,109 @@
             <h1>Mi carrito de compras</h1>
             <%
                 try{
-                    int i = 0;
                     out.print("<table>");
+                    out.print("<tr>");
+                    out.print("<td width='50'><center> &nbsp </center></td>");
+                    out.print("<td width='60'><center> Cantidad </center></td>");
+                    out.print("<td width='150'><center> Producto </center></td>");
+                    out.print("<td width='100'><center> Precio </center></td>");
+                    out.print("</tr>");
+                    
+                    int[][] Cantidad = new int[100][2];
+                    int k = 0;
+                    
+                    if(Carrito == null)
+                        Carrito = new ArrayList<Producto>();
+                    
+                    ciclo:
                     for(Producto p : Carrito){
+                        for(int i = 0; i < 100; i++){
+                            if(Cantidad[i][0] == p.getId()){
+                                Cantidad[i][1]++;
+                                continue ciclo;
+                            }
+                            if(Cantidad[i][0] == 0){
+                                k = i;
+                                break;
+                            }
+                        }
+                        Cantidad[k][0] = p.getId();
+                        Cantidad[k][1] = 1;
+                    }                    
+                    k = 0;
+                    for(int i = 0; i < 100; i++){
+                        if(Cantidad[k][0] == 0)
+                            break;
                         out.print("<tr>");
-                        out.print("<td>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></td>");
-                        out.print("<td> <img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"' width='50' height='50' ></td>");
-                        out.print("<td>" + p.getPrecio() + "</td>");
-                        out.print("<td><a href='ServletCarrito?accion=quitar&id="+i+"'><button class='add_cart' onclick=\"quitar_carrito();\">Quitar del carrito</button></a></td>");
+                        for(Producto p: Carrito){
+                            if(p.getId() == Cantidad[k][0])
+                            {
+                                out.print("<td><center><img id='id_img' src='data:image/jpg;base64, " + p.getFoto() + "'width='40' height='40'></center></td>");
+                                out.print("<td><center>"+Cantidad[k][1]+ "</center></td>");
+                                out.print("<td><center>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></center></td>");
+                                out.print("<td><center>" + p.getPrecio() + "</center></td>");
+                                break;
+                            }
+                        }
+                        out.print("<td><center><a href='ServletCarrito?accion=quitar&id="+k+"'><button class='add_cart' onclick=\"quitar_carrito();\">Quitar</button></a></center></td>");
                         out.print("</tr>");
-                        i++;
+                        k++;
                     }
                     out.print("</table>");
                 }catch(Exception e){
                     System.out.println("ERROR"+e);
                 }
             %>
+        </div>
+        
+        <div>
+            <h2>
+                Seleccione forma de pago:
+            </h2>
+            <table>
+                <tr>
+                    <td>
+                        <a href='ServletCarrito?accion=Tarjeta&id=0'>
+                            <button name="VISA" id="VISA" class="visible"> VISA</button>
+                        </a>
+                    </td>
+                    <td><label>&nbsp&nbsp&nbsp&nbsp&nbsp</label></td>
+                    <td>
+                        <a href='ServletCarrito?accion=Tarjeta&id=1'>
+                            <button name="Mastercard" id="Mastercard" class="novisible"> Mastercard</button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <tr>
+                    <td width='200'>
+                        <h3>
+                            Numero de tarjeta:
+                        </h3>
+                    </td>
+                    <td width='100'>
+                        <h3>
+                            Fecha de vencimiento:
+                        </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form name="f">
+                            <input type="text" placeholder="5451354972" name="NumTarjeta">
+                        </form>
+                    </td>
+                    <td>
+                        <input type="date" name="FechTarjeta">
+                    </td>
+                </tr>
+            </table>
+            <form action="ValidarTar" method="post">
+                <input type="submit" name="btn" value="Proceder con la compra"> 
+                <button name="Validar" id="Validar">Proceder con la compra</button>
+            </form>
         </div>
     </center>
     </body>

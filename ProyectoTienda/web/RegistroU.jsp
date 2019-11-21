@@ -13,8 +13,8 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-         <table border="0" width="300" align="Center">
-        <form action="RegistroUs" method="post">           
+        <table border="0" width="300" align="Center">
+           <form action="RegistroUs" method="post">           
            <tr>
                <td>Usuario:</td>
                <td><input type="text" placeholder="Usuario" name="username"></td>
@@ -72,7 +72,7 @@
                <td> <input type="text" placeholder="Teléfono" name="tel"></td>
            </tr>
             <tr>
-               <td>Passoword:</td>
+               <td>Password:</td>
                <td> <input type="password" placeholder="Password" name="txtPas"></td>
            </tr>                                   
            <tr>

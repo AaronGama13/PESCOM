@@ -37,8 +37,7 @@
         <link rel="stylesheet" href="CSS/universal.css">
     </head>
     <script type="text/javascript">
-        function agregar_carrito()
-        {
+        function agregar_carrito(){
             alert("Producto agregado al carrito de compras");
         }
     </script>
