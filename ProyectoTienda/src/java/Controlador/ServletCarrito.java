@@ -57,8 +57,7 @@ public class ServletCarrito extends HttpServlet {
             }
             else if(accion.equals("Validar")){
                 String Tarjeta = (String) sesion.getAttribute("Tarjeta");
-                if(Tarjeta.equals(""))
-                {
+                if(Tarjeta.equals("")){
                     sesion.setAttribute("Validar", "Seleccione el tipo de tarjeta");
                     response.sendRedirect("carrito.jsp");
                 }
@@ -82,7 +81,8 @@ public class ServletCarrito extends HttpServlet {
                 if(!(aux > 50 && aux < 56) && Tarjeta.equals("VISA")){
                     sesion.setAttribute("Validar", "Tarjeta Mastercard no valida");
                     response.sendRedirect("carrito.jsp");
-                }            
+                }
+                sesion.setAttribute("Validar", "Tarjeta valida");
                 response.sendRedirect("detalles_compra.jsp");
             }
         } catch(Exception e){
@@ -97,31 +97,35 @@ public class ServletCarrito extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession sesion = request.getSession();
             String Tarjeta = (String) sesion.getAttribute("Tarjeta");
-            if(Tarjeta.equals(""))
-            {
+            if(Tarjeta.equals("")){
                 sesion.setAttribute("Validar", "Seleccione el tipo de tarjeta");
                 response.sendRedirect("carrito.jsp");
+                return;
             }
             String sNum =  request.getParameter("NumTarjeta");
             sNum = sNum.replace(" ","");
             if(sNum.length() != 16){
                 sesion.setAttribute("Validar", "Tarjeta no valida");
                 response.sendRedirect("carrito.jsp");
+                return;
             }
             for(int i = 0; i < 16; i++){
                 if (!Character.isDigit(sNum.charAt(i))){
                     sesion.setAttribute("Validar", "Tarjeta no valida");
                     response.sendRedirect("carrito.jsp");
+                    return;
                 }
             }
             if(sNum.charAt(0) != '4' && Tarjeta.equals("VISA")){
                 sesion.setAttribute("Validar", "Tarjeta VISA no valida");
                 response.sendRedirect("carrito.jsp");
+                return;
             }
             int aux = Integer.parseInt(Character.toString(sNum.charAt(0)) + Character.toString(sNum.charAt(1)));
-            if(!(aux > 50 && aux < 56) && Tarjeta.equals("VISA")){
+            if(!(aux > 50 && aux < 56) && Tarjeta.equals("Mastercard")){
                 sesion.setAttribute("Validar", "Tarjeta Mastercard no valida");
                 response.sendRedirect("carrito.jsp");
+                return;
             }            
             response.sendRedirect("detalles_compra.jsp");
        }catch(Exception e){

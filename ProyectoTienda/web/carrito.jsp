@@ -149,34 +149,36 @@
                 </tr>
             </table>
             <br>
-            <table>
-                <tr>
-                    <td width='200'>
-                        <h3>
-                            Numero de tarjeta:
-                        </h3>
-                    </td>
-                    <td width='100'>
-                        <h3>
-                            Fecha de vencimiento:
-                        </h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <form name="f">
+            <form action="ServletCarrito" method="POST">
+                <table>
+                    <tr>
+                        <td width='200'>
+                            <h3>
+                                Numero de tarjeta:
+                            </h3>
+                        </td>
+                        <td width='100'>
+                            <h3>
+                                Fecha de vencimiento:
+                            </h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <input type="text" placeholder="5451354972" name="NumTarjeta">
-                        </form>
-                    </td>
-                    <td>
-                        <input type="date" name="FechTarjeta">
-                    </td>
-                </tr>
-            </table>
-            <form action="ValidarTar" method="post">
-                <input type="submit" name="btn" value="Proceder con la compra"> 
-                <button name="Validar" id="Validar">Proceder con la compra</button>
+                        </td>
+                        <td>
+                            <input type="date" name="FechTarjeta">
+                        </td>
+                    </tr>
+                </table>
+
+                <input type="submit" id="but" name="but" value="Proceder con la compra"> 
+                <!--<button name="Validar" id="Validar">Proceder con la compra</button>-->
             </form>
+            <%
+                out.print("<label> "+Validar+" </label>");
+            %>
         </div>
     </center>
     </body>
