@@ -57,9 +57,6 @@
                 background: #d9534f;
             }
         </style> 
-        <script>
-            var valortarjeta;
-        </script>
     </head>
     <body>
         <center>
@@ -173,12 +170,13 @@
                     </tr>
                 </table>
 
-                <input type="submit" id="but" name="but" value="Proceder con la compra"> 
-                <!--<button name="Validar" id="Validar">Proceder con la compra</button>-->
+                <%
+                    out.print("<input type='submit' value='Proceder con la compra'> ");
+                %>
             </form>
             <%
                 out.print("<label> "+Validar+" </label>");
-            %>
+            %>  
         </div>
     </center>
     </body>

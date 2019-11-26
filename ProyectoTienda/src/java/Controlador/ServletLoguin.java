@@ -52,6 +52,7 @@ public class ServletLoguin extends HttpServlet {
                         sesion.setAttribute("priv", priv);
                         sesion.setAttribute("Carrito", null);
                         sesion.setAttribute("Tarjeta", "");
+                        sesion.setAttribute("msj", "");
                         sesion.setAttribute("Validar", "");
                         response.sendRedirect("productos.jsp");                        
                     } else {

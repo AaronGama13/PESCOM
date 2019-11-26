@@ -19,12 +19,14 @@
     HttpSession sesionOK = request.getSession();   
     String username = "";
     String priv = "";
+    String msj = "";
     ArrayList<Producto> Carrito = new ArrayList<Producto>();
     if(sesionOK.getAttribute("usuario") != null){
         //RECUPERAMOS LOS DATOS DE LA SESIÓN
         username = (String) sesionOK.getAttribute("usuario");
         priv = (String) sesionOK.getAttribute("priv");
         Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
+        msj = (String) sesionOK.getAttribute("msj");
     }
     %>
 
@@ -40,12 +42,16 @@
         function agregar_carrito(){
             alert("Producto agregado al carrito de compras");
         }
+        
+        <% if(msj.equals("Compra realizada con éxito")) {%>
+            alert("Compra realizada con éxito");
+        <%}%>
     </script>
     <body>
     <center>
         <header>
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
-                 <%
+                <%
                 if(!priv.equals("A")){ %>
                     <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
                     <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>

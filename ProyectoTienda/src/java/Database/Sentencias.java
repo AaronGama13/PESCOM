@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT_PRODUCT_COMPRA = "INSERT INTO productocompra values (?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?"
             + "and priv = 'a' or priv = 'u'";
     private static final String SELECT_PRIV = "SELECT priv FROM usuario where username = ?";
@@ -27,7 +28,7 @@ public class Sentencias {
     private static final String INSERT_PRODUCTO = "INSERT INTO producto (nom, precio, stock, tipo, foto, detalles)"
             + "VALUES (?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_PRODUCT_INFO = "UPDATE producto SET nom=?, precio=?, stock=?, detalles=? WHERE idProducto=?";
-    
+    private static final String MAX_NOPEDIDO = "SELECT MAX(noPedido) as max from productocompra";    
     public static int createUsuario(String [] params){
         try{
             Connection cnx = Conexion.getConexion();
@@ -235,6 +236,28 @@ public class Sentencias {
         }                
     }
     
+    public static String insertarProductoCompra(int[][] Cantidad){
+        String msj = "Todo all right"; 
+        try{
+            int NoPedido = maxNoPedido();
+            for(int i = 0; i < 100; i++){
+                if(Cantidad[i][0] == 0)
+                    break;
+                PreparedStatement ps = Conexion.getConexion().prepareStatement(INSERT_PRODUCT_COMPRA);
+                ps.setInt(1, NoPedido);
+                ps.setInt(2, Cantidad[i][0]);
+                
+                Producto p  = readProductoId(Cantidad[i][0]);
+                ps.setString(3, p.getNombre());
+                ps.setInt(4, Cantidad[i][1]); 
+                ps.executeUpdate();
+            }   
+        }catch(Exception e){
+            msj = e.toString();
+        }
+        return msj;
+    }
+    
     public static int updateProductInfo(String nom, Double precio, int stock, String detalles, int id){
         try{
             PreparedStatement ps = Conexion.getConexion().prepareStatement(UPDATE_PRODUCT_INFO);
@@ -250,4 +273,18 @@ public class Sentencias {
             return 0;
         }
     }
+    
+    public static int maxNoPedido(){
+        int max = -1;
+        try{
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(MAX_NOPEDIDO);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+                max = rs.getInt("max") + 1;
+        } catch(Exception e){
+            
+        }
+        
+        return max;
+    } 
 }

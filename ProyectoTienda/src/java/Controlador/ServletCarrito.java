@@ -55,36 +55,6 @@ public class ServletCarrito extends HttpServlet {
                     response.sendRedirect("carrito.jsp");
                 }
             }
-            else if(accion.equals("Validar")){
-                String Tarjeta = (String) sesion.getAttribute("Tarjeta");
-                if(Tarjeta.equals("")){
-                    sesion.setAttribute("Validar", "Seleccione el tipo de tarjeta");
-                    response.sendRedirect("carrito.jsp");
-                }
-                String sNum =  request.getParameter("id");
-                sNum = sNum.replace(" ","");
-                if(sNum.length() != 16){
-                    sesion.setAttribute("Validar", "Tarjeta no valida");
-                    response.sendRedirect("carrito.jsp");
-                }
-                for(int i = 0; i < 16; i++){
-                    if (!Character.isDigit(sNum.charAt(i))){
-                        sesion.setAttribute("Validar", "Tarjeta no valida");
-                        response.sendRedirect("carrito.jsp");
-                    }
-                }
-                if(sNum.charAt(0) != '4' && Tarjeta.equals("VISA")){
-                    sesion.setAttribute("Validar", "Tarjeta VISA no valida");
-                    response.sendRedirect("carrito.jsp");
-                }
-                int aux = Integer.parseInt(Character.toString(sNum.charAt(0)) + Character.toString(sNum.charAt(1)));
-                if(!(aux > 50 && aux < 56) && Tarjeta.equals("VISA")){
-                    sesion.setAttribute("Validar", "Tarjeta Mastercard no valida");
-                    response.sendRedirect("carrito.jsp");
-                }
-                sesion.setAttribute("Validar", "Tarjeta valida");
-                response.sendRedirect("detalles_compra.jsp");
-            }
         } catch(Exception e){
             System.out.println("ERROR (Sentencias.readProductos): "+e);
             e.printStackTrace();
@@ -96,8 +66,14 @@ public class ServletCarrito extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession sesion = request.getSession();
+            ArrayList<Producto> Carrito = (ArrayList<Producto>) sesion.getAttribute("Carrito");
             String Tarjeta = (String) sesion.getAttribute("Tarjeta");
-            if(Tarjeta.equals("")){
+            if(Carrito == null || Carrito.isEmpty()){
+                sesion.setAttribute("Validar", "Seleccione un producto a comprar");
+                response.sendRedirect("carrito.jsp");
+                return;
+            }
+            else if(Tarjeta.equals("")){
                 sesion.setAttribute("Validar", "Seleccione el tipo de tarjeta");
                 response.sendRedirect("carrito.jsp");
                 return;
@@ -126,12 +102,40 @@ public class ServletCarrito extends HttpServlet {
                 sesion.setAttribute("Validar", "Tarjeta Mastercard no valida");
                 response.sendRedirect("carrito.jsp");
                 return;
-            }            
-            response.sendRedirect("detalles_compra.jsp");
+            }
+            
+            //Ingresar valor a la tabla
+            int[][] Cantidad = SacarCantidad(Carrito);
+            Sentencias.insertarProductoCompra(Cantidad);
+            
+            sesion.setAttribute("msj", "Compra realizada con éxito");
+            response.sendRedirect("productos.jsp");
        }catch(Exception e){
             System.out.println("ERROR (Sentencias.readProductos): "+e);
             e.printStackTrace();
         }
+    }
+    
+    public static int[][] SacarCantidad(ArrayList<Producto> Carrito){
+        int[][] Cantidad = new int [100][2];
+        int k = 0;
+        
+        ciclo:
+        for(Producto p : Carrito){
+            for(int i = 0; i < 100; i++){
+                if(Cantidad[i][0] == p.getId()){
+                    Cantidad[i][1]++;
+                    continue ciclo;
+                }
+                if(Cantidad[i][0] == 0){
+                    k = i;
+                    break;
+                }
+            }
+            Cantidad[k][0] = p.getId();
+            Cantidad[k][1] = 1;
+        }
+        return Cantidad;
     }
           
 
