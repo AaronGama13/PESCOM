@@ -81,25 +81,12 @@
                     out.print("<td width='100'><center> Precio </center></td>");
                     out.print("</tr>");
                     
-                    int k = 0;
                     if(Carrito == null)
                         Carrito = new ArrayList<Producto>();
-                    ciclo:
-                    for(Producto p : Carrito){
-                        for(int i = 0; i < 100; i++){
-                            if(Cantidad[i][0] == p.getId()){
-                                Cantidad[i][1]++;
-                                continue ciclo;
-                            }
-                            if(Cantidad[i][0] == 0){
-                                k = i;
-                                break;
-                            }
-                        }
-                        Cantidad[k][0] = p.getId();
-                        Cantidad[k][1] = 1;
-                    }                    
-                    k = 0;
+                    if(Cantidad == null)
+                        Cantidad = new int[100][2];
+                      
+                    int k = 0;
                     for(int i = 0; i < 100; i++){
                         if(Cantidad[k][0] == 0)
                             break;

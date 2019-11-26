@@ -46,7 +46,7 @@
         }
         
         <% if(!msj.equals("")) {%>
-            alert(msj);
+            alert("Compra realizada con éxito");
         <%}%>
     </script>
     <body>
@@ -67,6 +67,9 @@
                 %>
                     
         </header>
+        <br>
+        <a href="ventas.jsp"><font color="#000000">Ventas Realizadas</font></a>
+                    
         <h1>Productos disponibles</h1>
         <div class="filter_by">        
             <h3>Filtrar por:

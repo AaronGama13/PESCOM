@@ -35,7 +35,9 @@ public class ServletCarrito extends HttpServlet {
                 if(Carrito == null)
                     Carrito = new ArrayList<Producto>();  
                 Carrito.add(aux);
+                Cantidad = SacarCantidad(Carrito);
                 sesion.setAttribute("Carrito", Carrito);
+                sesion.setAttribute("Cantidad", Cantidad);
                 response.sendRedirect("productos.jsp");
             }
             else if(accion.equals("quitar")){
@@ -73,7 +75,7 @@ public class ServletCarrito extends HttpServlet {
                 }
             }
         } catch(Exception e){
-            System.out.println("ERROR (Sentencias.readProductos): "+e);
+            System.out.println("ERROR (ServletCarrito.doGet): "+e);
             e.printStackTrace();
         }
     }

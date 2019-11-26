@@ -31,7 +31,10 @@ public class Sentencias {
     private static final String INSERT_PRODUCTO = "INSERT INTO producto (nom, precio, stock, tipo, foto, detalles)"
             + "VALUES (?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_PRODUCT_INFO = "UPDATE producto SET nom=?, precio=?, stock=?, detalles=? WHERE idProducto=?";
-    private static final String MAX_NOPEDIDO = "SELECT MAX(noPedido) as max from productocompra";    
+    private static final String MAX_NOPEDIDO = "SELECT MAX(noPedido) as max from productocompra";   
+    private static final String SELECT_VENTAS = "SELECT * FROM compra";
+    private static final String SELECT_NOVENTAS = "SELECT * FROM compra as c, productocompra as p where c.NoPedido = p.NoPedido and"
+            + "c.NoPedido = ?";
     public static int createUsuario(String [] params){
         try{
             Connection cnx = Conexion.getConexion();
@@ -304,10 +307,26 @@ public class Sentencias {
             ResultSet rs = ps.executeQuery();
             if(rs.next())
                 max = rs.getInt("max") + 1;
-        } catch(Exception e){
-            
-        }
-        
+        } catch(Exception e){ }
         return max;
     } 
+    
+    public static ResultSet Ventas(){
+        ResultSet rs = null;
+        try{
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(SELECT_VENTAS);
+            rs = ps.executeQuery();
+        }catch(Exception e){ }
+        return rs;
+    }
+    
+    public static ResultSet NoVenta(int NoPedido){
+        ResultSet rs = null;
+        try{
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(SELECT_NOVENTAS);
+            ps.setInt(1,NoPedido);
+            rs = ps.executeQuery();
+        }catch(Exception e){ }
+        return rs;
+    }
 }
