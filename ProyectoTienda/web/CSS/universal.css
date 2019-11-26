@@ -4,6 +4,11 @@ html{
     font-size: 15px;
 }
 
+td{
+    align-content: center;
+    align-items: center;
+}
+
 header{
     background: #346d6b;
     border-radius: 5px;
