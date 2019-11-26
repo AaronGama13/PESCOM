@@ -4,6 +4,7 @@
     Author     : AnonimusCrack
 --%>
 
+<%@page import="Database.Sentencias"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -12,6 +13,7 @@
     HttpSession sesionOK = request.getSession();   
     String username = (String) sesionOK.getAttribute("usuario");
     String priv = (String) sesionOK.getAttribute("priv");
+    String comprador;
     ResultSet Compra = (ResultSet) sesionOK.getAttribute("rs");
     if(sesionOK.getAttribute("usuario") == null){
         response.sendRedirect("index.jsp");
@@ -50,6 +52,7 @@
                     <%
                         out.print("<td><center> " + Compra.getTimestamp("fecha") + "</center></td>");
                         out.print("<td><center> " + Compra.getString("comprador") + "</center></td>");
+                        comprador=Compra.getString("comprador");
                     %>
                     </tr>
                 </table>
@@ -69,6 +72,33 @@
                             out.print("</tr>");
                         }while(Compra.next());
                     %>
+                </table>
+                <h1>Etiqueta de envío</h1>
+                <%
+                    ResultSet datosComprador = Sentencias.datosEnvio(comprador);
+                %>
+                <table>
+                    <tr>
+                        <td>
+                            <%
+                                datosComprador.getString("");
+                            %>
+                        </td>
+                        <td>
+                            <%
+                            %>
+                        </td>
+                        <td>
+                            <%
+                            %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
                 </table>
                 <br><br>
                 <a href="ventas.jsp"><font color="#000000" >Regresar</font></a>

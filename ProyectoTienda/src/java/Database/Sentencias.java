@@ -328,4 +328,4 @@ public class Sentencias {
         }catch(Exception e){ }
         return rs;
     }
-}
+}   
