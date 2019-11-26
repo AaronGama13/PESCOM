@@ -18,9 +18,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="CSS/universal.css">
+        <link rel="stylesheet" href="CSS/style3.css">
         <title>Añadir Producto</title>
     </head>
     <body>
+        <div class="form">
+        <div class="tab-content">
     <center><h1>Añadir producto</h1></center>
     <form action="ServletAniadir" method="POST" enctype="multipart/form-data">
             <center>
@@ -28,12 +32,14 @@
                 <input type="number" name="precio" step="0.01" placeholder="Precio"><br><br>
                 <input type="number" name="stock" placeholder="Cantidad"><br><br>
                 <input type="text" name="tipo" placeholder="Tipo de producto"><br><br>
-                <label>Imagen</label><br><br>
+                
                 <input type="file" name="foto" required><br><br>
                 <textarea spellcheck="true" name="detalles" placeholder="Detalles"></textarea><br><br>
-                <label>Añadir</label><br><br>
-                <input type="submit">
+                
+                <input class="button button-block" type="submit">
             </center>
         </form>
+    </div>
+        </div>
     </body>
 </html>

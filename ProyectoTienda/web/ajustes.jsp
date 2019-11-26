@@ -19,17 +19,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="CSS/universal.css">
+        <link rel="stylesheet" href="CSS/style3.css">
         <title>Ajustes</title>
+        
     </head>
     <body>
-        <div>
+        <div class="form">
+        <div class="tab-content">
+        <center><h1>Eliminar cuenta</h1></center>
+        
             <form action="ServletLoguin?accion=borrar" method="POST">
-                <center><h3>Eliminar cuenta</h3></center>
-                <center><label>Para eliminar su cuenta introduzca su usuario y contraseña</label></center><br>
-                <center><input type="text" name="username" placeholder="Usuario"></center><br>
+                <center><input type="text" name="username" placeholder="Usuario" class="Fields"></center><br>
                 <center><input type="password" name="pass" placeholder="Contraseña"></center><br>
-                <center><input type="submit" name="borrar"></center>
+                <center><input type="submit" class="button button-block" name="borrar"></center>
             </form>
+        
+        </div>
+            </div>
+        <div>
+            <center>
+                <label>Para eliminar su cuenta introduzca su usuario y contraseña</label>
+            </center>
         </div>
     </body>
 </html>
