@@ -51,6 +51,7 @@ public class ServletLoguin extends HttpServlet {
                         sesion.setAttribute("usuario", username); 
                         sesion.setAttribute("priv", priv);
                         sesion.setAttribute("Carrito", null);
+                        sesion.setAttribute("Cantidad", null);
                         sesion.setAttribute("Tarjeta", "");
                         sesion.setAttribute("msj", "");
                         sesion.setAttribute("Validar", "");

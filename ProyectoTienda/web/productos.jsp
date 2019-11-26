@@ -21,11 +21,13 @@
     String priv = "";
     String msj = "";
     ArrayList<Producto> Carrito = new ArrayList<Producto>();
+    int[][] Cantidad = new int[100][2];
     if(sesionOK.getAttribute("usuario") != null){
         //RECUPERAMOS LOS DATOS DE LA SESIÓN
         username = (String) sesionOK.getAttribute("usuario");
         priv = (String) sesionOK.getAttribute("priv");
         Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
+        Cantidad = (int[][]) sesionOK.getAttribute("Cantidad");
         msj = (String) sesionOK.getAttribute("msj");
     }
     %>
@@ -43,8 +45,8 @@
             alert("Producto agregado al carrito de compras");
         }
         
-        <% if(msj.equals("Compra realizada con éxito")) {%>
-            alert("Compra realizada con éxito");
+        <% if(!msj.equals("")) {%>
+            alert(msj);
         <%}%>
     </script>
     <body>

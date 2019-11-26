@@ -27,6 +27,7 @@ public class ServletCarrito extends HttpServlet {
             int idProducto = Integer.parseInt(request.getParameter("id"));
             String accion = request.getParameter("accion");
             HttpSession sesion = request.getSession();
+            int[][] Cantidad = (int [][]) sesion.getAttribute("Cantidad");
             ArrayList<Producto> Carrito = (ArrayList<Producto>) sesion.getAttribute("Carrito");
             
             if(accion.equals("agregar")){
@@ -38,11 +39,27 @@ public class ServletCarrito extends HttpServlet {
                 response.sendRedirect("productos.jsp");
             }
             else if(accion.equals("quitar")){
-                //Producto aux = Sentencias.readProductoId(idProducto);
-                Carrito.remove(idProducto);
-                if(Carrito == null)
-                    Carrito = new ArrayList<Producto>();
-                sesion.setAttribute("Carrito", Carrito);
+                Producto aux = Sentencias.readProductoId(idProducto);
+                //int i = Carrito.indexOf((Object) aux);
+                //if(Carrito == null)
+                //    Carrito = new ArrayList<Producto>();
+                
+                for(int i = 0; i < 100; i++){
+                    if(Cantidad[i][0] == aux.getId())
+                    {
+                        Cantidad[i][1]--;
+                        if(Cantidad[i][1] <= 0){
+                            for(int k = i; k < 99; k++){
+                                if(Cantidad[k+1][0] == 0)
+                                    break;
+                                Cantidad[k][0] = Cantidad[k+1][0];
+                                Cantidad[k][1] = Cantidad[k+1][1];
+                            }
+                        }
+                        break;
+                    }
+                }
+                sesion.setAttribute("Cantidad", Cantidad);
                 response.sendRedirect("carrito.jsp");
             }
             else if(accion.equals("Tarjeta")){
@@ -66,6 +83,7 @@ public class ServletCarrito extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession sesion = request.getSession();
+            String username = (String) sesion.getAttribute("usuario");
             ArrayList<Producto> Carrito = (ArrayList<Producto>) sesion.getAttribute("Carrito");
             String Tarjeta = (String) sesion.getAttribute("Tarjeta");
             if(Carrito == null || Carrito.isEmpty()){
@@ -103,12 +121,13 @@ public class ServletCarrito extends HttpServlet {
                 response.sendRedirect("carrito.jsp");
                 return;
             }
-            
             //Ingresar valor a la tabla
             int[][] Cantidad = SacarCantidad(Carrito);
-            Sentencias.insertarProductoCompra(Cantidad);
-            
-            sesion.setAttribute("msj", "Compra realizada con éxito");
+            String msj = Sentencias.insertarCompra(username, Cantidad);
+            if(msj.equals("Compra realizada con éxito"))
+                Carrito.clear();
+            sesion.setAttribute("msj", msj);
+            sesion.setAttribute("Carrito", Carrito);
             response.sendRedirect("productos.jsp");
        }catch(Exception e){
             System.out.println("ERROR (Sentencias.readProductos): "+e);

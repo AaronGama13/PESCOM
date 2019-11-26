@@ -20,12 +20,14 @@
     ArrayList<Producto> Carrito = null;
     String Tarjeta = "";
     String Validar = "";
+    int [][] Cantidad = new int[100][2];
     if(sesionOK.getAttribute("usuario")!=null){
         username = (String) sesionOK.getAttribute("usuario");
         priv = (String) sesionOK.getAttribute("priv");
         Carrito = (ArrayList<Producto>) sesionOK.getAttribute("Carrito");
         Tarjeta = (String) sesionOK.getAttribute("Tarjeta");
         Validar = (String) sesionOK.getAttribute("Validar");
+        Cantidad = (int[][]) sesionOK.getAttribute("Cantidad");
     }
     
     if(priv.equals("A")){
@@ -79,12 +81,9 @@
                     out.print("<td width='100'><center> Precio </center></td>");
                     out.print("</tr>");
                     
-                    int[][] Cantidad = new int[100][2];
                     int k = 0;
-                    
                     if(Carrito == null)
                         Carrito = new ArrayList<Producto>();
-                    
                     ciclo:
                     for(Producto p : Carrito){
                         for(int i = 0; i < 100; i++){
@@ -106,16 +105,18 @@
                             break;
                         out.print("<tr>");
                         for(Producto p: Carrito){
-                            if(p.getId() == Cantidad[k][0])
-                            {
+                            if(p.getId() == Cantidad[k][0]){
+                                if(Cantidad[k][1] <= 0)
+                                    continue;
                                 out.print("<td><center><img id='id_img' src='data:image/jpg;base64, " + p.getFoto() + "'width='40' height='40'></center></td>");
                                 out.print("<td><center>"+Cantidad[k][1]+ "</center></td>");
                                 out.print("<td><center>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></center></td>");
                                 out.print("<td><center>" + p.getPrecio() + "</center></td>");
+                                out.print("<td><center><a href='ServletCarrito?accion=quitar&id="+p.getId()+"'><button class='add_cart' onclick=\"quitar_carrito();\">Quitar</button></a></center></td>");
+                        
                                 break;
                             }
                         }
-                        out.print("<td><center><a href='ServletCarrito?accion=quitar&id="+k+"'><button class='add_cart' onclick=\"quitar_carrito();\">Quitar</button></a></center></td>");
                         out.print("</tr>");
                         k++;
                     }

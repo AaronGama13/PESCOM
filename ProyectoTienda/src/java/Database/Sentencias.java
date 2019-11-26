@@ -9,13 +9,16 @@ package Database;
 import Modelos.Producto;
 import java.io.InputStream;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Sentencias {
     
     private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT_COMPRA = "INSERT INTO compra VALUES (?,?,?)";
     private static final String INSERT_PRODUCT_COMPRA = "INSERT INTO productocompra values (?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?"
             + "and priv = 'a' or priv = 'u'";
@@ -235,11 +238,31 @@ public class Sentencias {
             return 10;
         }                
     }
-    
-    public static String insertarProductoCompra(int[][] Cantidad){
-        String msj = "Todo all right"; 
+    public static String insertarCompra(String comprador, int[][] Cantidad){
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String msj;   
+        Calendar c = Calendar.getInstance();
+        String fecha = Integer.toString(c.get(Calendar.YEAR)) + "/" + Integer.toString(c.get(Calendar.MONTH)) + "/" + Integer.toString(c.get(Calendar.DATE));
         try{
             int NoPedido = maxNoPedido();
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(INSERT_COMPRA);
+            ps.setInt(1, NoPedido);
+            ps.setTimestamp(2, timestamp);
+            ps.setString(3, comprador);
+            ps.executeUpdate();
+            msj = insertarProductoCompra(NoPedido, Cantidad);
+        }catch(Exception e){
+            msj = "insertarCompra(error): " + e.toString();
+        }
+        
+        return msj;
+        
+    }
+    
+    public static String insertarProductoCompra(int NoPedido, int[][] Cantidad){
+        String msj = "Compra realizada con éxito"; 
+        try{
             for(int i = 0; i < 100; i++){
                 if(Cantidad[i][0] == 0)
                     break;
@@ -253,7 +276,7 @@ public class Sentencias {
                 ps.executeUpdate();
             }   
         }catch(Exception e){
-            msj = e.toString();
+            msj = "insertarProductoCompra(error): " + e.toString();
         }
         return msj;
     }
