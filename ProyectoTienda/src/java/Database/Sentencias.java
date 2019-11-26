@@ -22,6 +22,7 @@ public class Sentencias {
     private static final String INSERT_PRODUCT_COMPRA = "INSERT INTO productocompra values (?,?,?,?)";
     private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?"
             + "and priv = 'a' or priv = 'u'";
+    private static final String SELECT_USER_DIR= "SELECT np,ap,am,calle,noExt,noInt,col,alc,muni,edo,cd,cp FROM usuario where username=?";
     private static final String SELECT_PRIV = "SELECT priv FROM usuario where username = ?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
     private static final String SELECT_PRODUCTOS_ID = "SELECT * FROM Producto WHERE idProducto=?";
@@ -329,6 +330,18 @@ public class Sentencias {
             ps.setInt(1,NoPedido);
             rs = ps.executeQuery();
         }catch(Exception e){ }
+        return rs;
+    }
+    
+    public static ResultSet datosEnvio(String comprador){
+        ResultSet rs = null;
+        try{
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(SELECT_USER_DIR);
+            ps.setString(1,comprador);
+            rs = ps.executeQuery();
+        }catch(Exception e){
+            System.out.println("ERROR");
+        }
         return rs;
     }
 }

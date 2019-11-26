@@ -3,6 +3,12 @@
     align-content: center;
 }
 
+.etiqueta{
+    width: 80%;
+    height: 20%;
+    background: white;
+}
+
 input[type=text]{
     width: 50%;
     align-content: center;
