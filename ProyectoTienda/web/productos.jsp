@@ -68,7 +68,10 @@
                     
         </header>
         <br>
-        <a href="ventas.jsp"><font color="#000000">Ventas Realizadas</font></a>
+        <%
+        if(priv.equals("A")){ %>
+            <a href="ventas.jsp"><font color="#000000" >Ventas Realizadas</font></a>
+        <%}%>
                     
         <h1>Productos disponibles</h1>
         <div class="filter_by">        
