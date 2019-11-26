@@ -273,6 +273,9 @@ public class Sentencias {
                 ps.setInt(2, Cantidad[i][0]);
                 
                 Producto p  = readProductoId(Cantidad[i][0]);
+                /*
+                AQUI CHECAMOS STOCK DE CADA PRODUCTO Y RESTAMOS
+                */
                 ps.setString(3, p.getNombre());
                 ps.setInt(4, Cantidad[i][1]); 
                 ps.executeUpdate();
