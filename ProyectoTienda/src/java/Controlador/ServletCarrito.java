@@ -142,6 +142,8 @@ public class ServletCarrito extends HttpServlet {
             //sesion.setAttribute("Carrito", Carrito);
             int Pedido = Sentencias.maxNoPedido() - 1;
             ResultSet Compra = Sentencias.NoVenta(Pedido);
+            sesion.setAttribute("Carrito", null);
+            sesion.setAttribute("Cantidad", null);
             sesion.setAttribute("rs", Compra);
             response.sendRedirect("venta_detalles.jsp");
        }catch(Exception e){

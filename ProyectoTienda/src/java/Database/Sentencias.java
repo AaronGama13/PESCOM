@@ -33,7 +33,7 @@ public class Sentencias {
     private static final String UPDATE_PRODUCT_INFO = "UPDATE producto SET nom=?, precio=?, stock=?, detalles=? WHERE idProducto=?";
     private static final String MAX_NOPEDIDO = "SELECT MAX(noPedido) as max from productocompra";   
     private static final String SELECT_VENTAS = "SELECT * FROM compra";
-    private static final String SELECT_NOVENTAS = "SELECT * FROM compra NATURAL JOIN productocompra WHERE noPedido = ?";
+    private static final String SELECT_NOVENTAS = "SELECT * FROM compra natural join productocompra WHERE NoPedido = ?";
     public static int createUsuario(String [] params){
         try{
             Connection cnx = Conexion.getConexion();
