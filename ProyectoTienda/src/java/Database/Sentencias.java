@@ -20,8 +20,7 @@ public class Sentencias {
     private static final String INSERT_USER = "INSERT INTO usuario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String INSERT_COMPRA = "INSERT INTO compra VALUES (?,?,?)";
     private static final String INSERT_PRODUCT_COMPRA = "INSERT INTO productocompra values (?,?,?,?)";
-    private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?"
-            + "and priv = 'a' or priv = 'u'";
+    private static final String SELECT_USERNAME = "SELECT * FROM usuario where username=? and  pass=?";
     private static final String SELECT_USER_DIR= "SELECT np,ap,am,calle,noExt,noInt,col,alc,muni,edo,cd,cp FROM usuario where username=?";
     private static final String SELECT_PRIV = "SELECT priv FROM usuario where username = ?";
     private static final String SELECT_PRODUCTOS = "SELECT * FROM Producto";
@@ -34,7 +33,7 @@ public class Sentencias {
     private static final String UPDATE_PRODUCT_INFO = "UPDATE producto SET nom=?, precio=?, stock=?, detalles=? WHERE idProducto=?";
     private static final String MAX_NOPEDIDO = "SELECT MAX(noPedido) as max from productocompra";   
     private static final String SELECT_VENTAS = "SELECT * FROM compra";
-    private static final String SELECT_NOVENTAS = "SELECT * FROM compra natural join productocompra WHERE NoPedido = ?";
+    private static final String SELECT_NOVENTAS = "SELECT * FROM compra natural join productocompra natural join producto WHERE NoPedido = ?";
     public static int createUsuario(String [] params){
         try{
             Connection cnx = Conexion.getConexion();
