@@ -71,7 +71,7 @@
 <<<<<<< HEAD
         <%
         if(priv.equals("A")){ %>
-        <a href="ventas.jsp"><font color="#000000" >Ventas Realizadas</font></a><br>
+            <a href="ventas.jsp"><font color="#000000" >Ventas Realizadas</font></a>
             <a href="reportes.jsp"><font color="#000000" >Reportes</font></a>
         <%}%>
 =======

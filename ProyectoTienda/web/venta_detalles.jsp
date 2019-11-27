@@ -4,7 +4,6 @@
     Author     : AnonimusCrack
 --%>
 
-<%@page import="Database.Sentencias"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -14,7 +13,6 @@
     String username = (String) sesionOK.getAttribute("usuario");
     String priv = (String) sesionOK.getAttribute("priv");
     ResultSet Compra = (ResultSet) sesionOK.getAttribute("rs");
-    String comprador;
     if(sesionOK.getAttribute("usuario") == null){
         response.sendRedirect("index.jsp");
     }else{
@@ -52,7 +50,6 @@
                     <%
                         out.print("<td><center> " + Compra.getTimestamp("fecha") + "</center></td>");
                         out.print("<td><center> " + Compra.getString("comprador") + "</center></td>");
-                        comprador = Compra.getString("comprador");
                     %>
                     </tr>
                 </table>
@@ -64,33 +61,17 @@
                         <td width='50'><center>Cantidad</center></td>
                     </tr>
                     <%
-                        while(Compra.next()){
+                        do{
                             out.print("<tr>");
                             out.print("<td><center> " + Compra.getInt("idProducto") + "</center></td>");
                             out.print("<td><center> " + Compra.getString("nomProducto") + "</center></td>");
                             out.print("<td><center> " + Compra.getInt("cantidadProdcuto") + "</center></td>");
                             out.print("</tr>");
-                        }
+                        }while(Compra.next());
                     %>
                 </table>
-                </div>
                 <br><br>
-                <%if(priv.equals("A")){
-                    out.print("Etiqueta de envio<div class='etiqueta'>");
-                            ResultSet envio = Sentencias.datosEnvio(comprador);
-                            while(envio.next()){
-                                out.print(envio.getString("np")+envio.getString("ap")+envio.getString("am")+"<br>");
-                                out.print(envio.getString("calle")+" "+envio.getInt("noExt")+" ");
-                                if(envio.getInt("noInt")!=0){
-                                    out.print(envio.getInt("noInt")+"<br>");
-                                }else{
-                                    out.print("<br>");
-                                }
-                                out.print(envio.getString("alc")+"<br>"+envio.getString("col")+"<br>");
-                                out.print(envio.getString("edo")+" "+envio.getString("cd")+"<br>"+envio.getInt("cp"));
-                            }
-                            out.print("</div>");
-                %>
+                <%if(priv == "A"){%>
                     <a href="ventas.jsp"><font color="#000000" >Regresar</font></a>
                 <%}else{%>
                     <a href="productos.jsp"><font color="#000000" >Regresar</font></a>
