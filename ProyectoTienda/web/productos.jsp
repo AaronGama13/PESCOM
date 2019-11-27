@@ -55,7 +55,7 @@
             <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
                 <%
                 if(!priv.equals("A")){ %>
-                    <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a><br>
+                    <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
                     <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
                 <%}
                 out.print("<form action='ServletLoguin' method='POST'>");
@@ -70,7 +70,7 @@
         <br>
         <%
         if(priv.equals("A")){ %>
-            <a href="ventas.jsp"><font color="#000000" >Ventas Realizadas</font></a>
+            <a href="ventas.jsp"><font color="#000000" >Ventas Realizadas</font></a><br>
             <a href="reportes.jsp"><font color="#000000" >Reportes</font></a>
         <%}%>           
         <h1>Productos disponibles</h1>

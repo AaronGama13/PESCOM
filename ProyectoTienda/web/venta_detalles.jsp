@@ -70,39 +70,29 @@
                             out.print("<td><center> " + Compra.getString("nomProducto") + "</center></td>");
                             out.print("<td><center> " + Compra.getInt("cantidadProdcuto") + "</center></td>");
                             out.print("</tr>");
-                        }while(Compra.next());
-                    %>
+                        }while(Compra.next()); %>
                 </table>
-                <h1>Etiqueta de envío</h1>
-                <%
-                    ResultSet datosComprador = Sentencias.datosEnvio(comprador);
+                <br>
+                <br>
+                <%if(priv.equals("A")){
+                    out.print("Etiqueta de envio<div class='etiqueta'>");
+                    ResultSet envio = Sentencias.datosEnvio(comprador);
+                    while(envio.next()){
+                        out.print(envio.getString("np")+ " " +envio.getString("ap")+ " " +envio.getString("am")+"<br>");
+                        out.print(envio.getString("calle")+" "+envio.getInt("noExt")+" ");
+                        if(envio.getInt("noInt")!=0){
+                            out.print(envio.getInt("noInt")+"<br>");
+                        }else{
+                            out.print("<br>");
+                        }
+                        out.print(envio.getString("alc")+"<br>"+envio.getString("col")+"<br>");
+                        out.print(envio.getString("edo")+" "+envio.getString("cd")+"<br>"+envio.getInt("cp"));
+                    }
+                    out.print("</div>");
                 %>
-                <table>
-                    <tr>
-                        <td>
-                            <%
-                                datosComprador.getString("");
-                            %>
-                        </td>
-                        <td>
-                            <%
-                            %>
-                        </td>
-                        <td>
-                            <%
-                            %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                </table>
-                <br><br>
-                <%if(priv.equals("A")){%>
-                    <a href="ventas.jsp"><font color="#000000" >Regresar</font></a>
+                <br>
+                <br>
+                <a href="ventas.jsp"><font color="#000000" >Regresar</font></a>
                 <%}else{%>
                     <a href="productos.jsp"><font color="#000000" >Regresar</font></a>
                 <%}%>
