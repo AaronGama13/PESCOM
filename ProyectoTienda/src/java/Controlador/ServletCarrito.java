@@ -9,6 +9,7 @@ import Database.Sentencias;
 import Modelos.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.*;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
@@ -135,11 +136,14 @@ public class ServletCarrito extends HttpServlet {
             //Ingresar valor a la tabla
             int[][] Cantidad = SacarCantidad(Carrito);
             String msj = Sentencias.insertarCompra(username, Cantidad);
-            if(msj.equals("Compra realizada con éxito"))
-                Carrito.clear();
-            sesion.setAttribute("msj", msj);
-            sesion.setAttribute("Carrito", Carrito);
-            response.sendRedirect("productos.jsp");
+            //if(msj.equals("Compra realizada con éxito"))
+            //    Carrito.clear();
+            //sesion.setAttribute("msj", msj);
+            //sesion.setAttribute("Carrito", Carrito);
+            int Pedido = Sentencias.maxNoPedido() - 1;
+            ResultSet Compra = Sentencias.NoVenta(Pedido);
+            sesion.setAttribute("rs", Compra);
+            response.sendRedirect("venta_detalles.jsp");
        }catch(Exception e){
             System.out.println("ERROR (Sentencias.readProductos): "+e);
             e.printStackTrace();

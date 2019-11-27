@@ -71,7 +71,11 @@
                     %>
                 </table>
                 <br><br>
-                <a href="ventas.jsp"><font color="#000000" >Regresar</font></a>
+                <%if(priv == "A"){%>
+                    <a href="ventas.jsp"><font color="#000000" >Regresar</font></a>
+                <%}else{%>
+                    <a href="productos.jsp"><font color="#000000" >Regresar</font></a>
+                <%}%>
             </div>
         </center>
     </body>
