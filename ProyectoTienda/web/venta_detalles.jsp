@@ -71,7 +71,7 @@
                     %>
                 </table>
                 <br><br>
-                <%if(priv == "A"){%>
+                <%if(priv.equals("A")){%>
                     <a href="ventas.jsp"><font color="#000000" >Regresar</font></a>
                 <%}else{%>
                     <a href="productos.jsp"><font color="#000000" >Regresar</font></a>
