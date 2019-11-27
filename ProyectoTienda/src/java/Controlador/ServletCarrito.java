@@ -9,13 +9,11 @@ import Database.Sentencias;
 import Modelos.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.*;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 @WebServlet(name = "ServletCarrito", urlPatterns = {"/ServletCarrito"})
 public class ServletCarrito extends HttpServlet {
@@ -98,10 +96,21 @@ public class ServletCarrito extends HttpServlet {
                 response.sendRedirect("carrito.jsp");
                 return;
             }
+            SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-DD");
+            Date sFech =  formateador.parse(request.getParameter("FechTarjeta"));
+            String aux2 = formateador.format(new Date());
+            Date fechaActual =  formateador.parse(aux2);
+            
+            
             String sNum =  request.getParameter("NumTarjeta");
             sNum = sNum.replace(" ","");
             if(sNum.length() != 16){
                 sesion.setAttribute("Validar", "Tarjeta no valida");
+                response.sendRedirect("carrito.jsp");
+                return;
+            }
+            if(sFech.before(fechaActual)){
+                sesion.setAttribute("Validar", "Tarjeta Vencida");
                 response.sendRedirect("carrito.jsp");
                 return;
             }
