@@ -5,13 +5,13 @@
  */
 package Controlador;
 
-import Database.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -47,19 +47,17 @@ public class ServletVentas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
             
-            HttpSession sesion = request.getSession();
             String accion = request.getParameter("accion");
             int idVenta = Integer.parseInt(request.getParameter("id"));
             if(accion.equals("mostrar")){
-                ResultSet rs = Sentencias.NoVenta(idVenta);
-                sesion.setAttribute("rs", rs);
-                response.sendRedirect("venta_detalles.jsp");
+                
             }
         
         }catch(Exception e){
             System.out.println("ERROR (Servlet.goGet): "+e);
             e.printStackTrace();
         }
+        processRequest(request, response);
     }
 
     /**
