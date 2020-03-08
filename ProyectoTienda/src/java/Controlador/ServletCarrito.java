@@ -51,15 +51,11 @@ public class ServletCarrito extends HttpServlet {
                         Cantidad[i][1]--;
                         if(Cantidad[i][1] <= 0){
                             for(int k = i; k < 99; k++){
-                                if(Cantidad[k+1][0] != 0){
-                                    Cantidad[k][0] = Cantidad[k+1][0];
-                                    Cantidad[k][1] = Cantidad[k+1][1];
-                                }else{
-                                    Cantidad[k+1][0] = 0;
-                                    Cantidad[k+1][1] = 0;
-                                }
+                                if(Cantidad[k+1][0] == 0)
+                                    break;
+                                Cantidad[k][0] = Cantidad[k+1][0];
+                                Cantidad[k][1] = Cantidad[k+1][1];
                             }
-                            
                         }
                         break;
                     }

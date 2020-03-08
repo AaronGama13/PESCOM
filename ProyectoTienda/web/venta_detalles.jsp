@@ -62,26 +62,15 @@
                         <td width='50'><center>idProducto</center></td>
                         <td width='150'><center>Nombre del Producto</center></td>
                         <td width='50'><center>Cantidad</center></td>
-                        <td width='50'><center>Precio</center></td>
                     </tr>
                     <%
-                        double k= 0.00;
-                        
                         do{
-                            
                             out.print("<tr>");
                             out.print("<td><center> " + Compra.getInt("idProducto") + "</center></td>");
                             out.print("<td><center> " + Compra.getString("nomProducto") + "</center></td>");
                             out.print("<td><center> " + Compra.getInt("cantidadProdcuto") + "</center></td>");
-                            out.print("<td><center>"+Compra.getDouble("precio")*Compra.getInt("cantidadProdcuto")+"</center></td>");
                             out.print("</tr>");
-                            k=k+Compra.getDouble("precio")*Compra.getInt("cantidadProdcuto");
                         }while(Compra.next()); %>
-                        <tr>
-                            <td>Total</td>
-                            <td><%out.print(k);%></td>
-                        
-                        </tr>
                 </table>
                 <br>
                 <br>
