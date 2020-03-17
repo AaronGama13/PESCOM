@@ -1,0 +1,166 @@
+nav{
+	background-color: black;
+	color: white;
+}
+
+.profile, .cart{
+	margin: 10px;
+	float: right;
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 50%;
+}
+
+.logo{
+	width: 9em;
+	height: 3em;
+	margin-right: 2em;
+}
+
+
+.container{
+	width: 100%;
+}
+
+.products-link {
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	vertical-align: middle;
+	margin-left: 2em;
+}
+
+.products-link:hover{
+	animation: glow 1s ease-in-out infinite alternate;
+	color: white;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff;
+  }
+  to {
+    text-shadow: 0 0 7px #fff, 0 0 7px #fff;
+  }
+}
+
+.products{
+	margin-bottom: 40px;
+	margin-left: 30px;
+	padding-botton: 30px;
+}
+
+
+.filter-menu{
+	width: 20%;
+	margin: 0 auto;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 1em;
+	align-items: center;
+	align-content: center;
+}
+
+.menu-item{
+	display: inline-block;
+	margin: auto;
+	margin-top: 4px;
+}
+
+.menu-item p{
+	text-align: center;
+	margin-left: 2px;
+	margin-top: 5px;
+	margin-bottom: 1px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1em;
+}
+
+
+.catalogue{
+	width: 80%;
+	margin: auto;
+}
+
+.title{
+	font-family: 'Roboto', sans-serif;
+	font-size: 30px;
+	text-align: center;
+}
+
+.product-container{
+    width: 15%;
+    height: 3em;
+    display: inline-block;
+    margin: 3em;
+}
+
+.product-img img{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+}
+
+.product-overlay{
+	position: absolute;
+	width: 140px;
+	height: 140px;
+	background: rgba(0, 0, 0, 0);
+	transition: background 0.5s ease;
+}
+
+.product-img:hover .product-overlay{
+	display: block;
+	background: rgba(0,0,0,0.5);
+}
+
+.product-info{
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
+	text-align: justify;
+	margin-top: 11em;
+}
+
+.btn-add {
+	position: absolute;
+	width: 80px;
+	margin-left: 1.78em;
+	margin-top: 2em;
+	text-align: center;
+	opacity: 0;
+	transition: opacity .35s ease;
+}
+
+.btn-details{
+	position: absolute;
+	width: 100px;
+	margin-left: 1.1em;
+	margin-top: 5em;
+	text-align: center;
+	opacity: 0;
+	transition: opacity .35s ease;	
+}
+
+.btn-add a, .btn-details a{
+	width: 80px;
+	padding: 5px;
+	text-align: center;
+	color: white;
+	border-color: white;
+	border-radius: 2px;
+	border: solid 1px;
+	z-index: 1;
+	text-decoration:none;
+}
+
+.btn-add a{
+	background-color: rgba(255,93,179,0.5);
+}
+
+.product-img:hover .btn-add{
+	opacity: 1;
+	color:white;
+}
+
+.product-img:hover .btn-details{
+	opacity: 1;
+	color:white;
+}

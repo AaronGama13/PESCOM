@@ -35,98 +35,144 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" href="CSS/productos.css">
-        <link rel="stylesheet" href="CSS/universal.css">
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Catálogo de productos</title>
+            <link rel="stylesheet" href="CSS/catalogo.css" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <script type="text/javascript">
-        function agregar_carrito(){
-            alert("Producto agregado al carrito de compras");
-        }
-        
-        <% if(!msj.equals("")) {%>
-            alert("Compra realizada con éxito");
-        <%}%>
-    </script>
     <body>
-    <center>
-        <header>
-            <a href="productos.jsp">Bienvenido a LINIO MX feiq</a>
+        <nav class="navbar navbar-expand-lg">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="navbar-item">
+                        <img src="assets/icons/logo.png" class="logo">
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link products-link" href="#">Productos</a>
+                    </li>
+                </ul>
+                <img src="assets/icons/profile.png" class="profile">
+                <img src="assets/icons/cart.png" class="cart">
+            </div>
+        </nav>		
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="assets/imgs/uno.jpg" class="d-block w-100">
+                    <div class="carousel-caption">
+                        <div class="filter-menu">
+                            <div class="menu-item">
+                                <img src="assets/icons/book.png" width="20" height="20">
+                                <p>Libros</p>
+                            </div>
+                            <div class="menu-item">
+                                <img src="assets/icons/movie.png" width="20" height="20">
+                                <p>Películas</p>
+                            </div>
+                            <div class="menu-item">
+                                <img src="assets/icons/cd.png" width="20" height="20">
+                                <p>Música</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/imgs/dos.png" class="d-block w-100">
+                    <div class="carousel-caption">
+                        <div class="filter-menu">
+                            <div class="menu-item">
+                                <img src="assets/icons/book.png" width="20" height="20">
+                                <p>Libros</p>
+                            </div>
+                            <div class="menu-item">
+                                <img src="assets/icons/movie.png" width="20" height="20">
+                                <p>Películas</p>
+                            </div>
+                            <div class="menu-item">
+                                <img src="assets/icons/cd.png" width="20" height="20">
+                                <p>Música</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/imgs/tres.jpg" class="d-block w-100">
+                    <div class="carousel-caption">
+                        <div class="filter-menu">
+                            <div class="menu-item">
+                                <img src="assets/icons/book.png" width="20" height="20">
+                                <p>Libros</p>
+                            </div>
+                            <div class="menu-item">
+                                <img src="assets/icons/movie.png" width="20" height="20">
+                                <p>Películas</p>
+                            </div>
+                            <div class="menu-item">
+                                <img src="assets/icons/cd.png" width="20" height="20">
+                                <p>Música</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">	
+            <div class="catalogue">
+                <br/><br/>
+                <p class="title">Catálogo de CDs</p>
                 <%
-                if(!priv.equals("A")){ %>
-                    <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
-                    <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
-                <%}
-                out.print("<form action='ServletLoguin' method='POST'>");
-                    out.print("<input name='username' type='hidden' value='"+username+"'>");
-                    out.print("<input name='pass' type='hidden' value='X'>");
-                    out.print("<input name='accion' type='hidden' value='cerrar'>");
-                    out.print("<input type='submit' value='Cerrar sesión'>");
-                out.print("</form>");
-                %>
-                    
-        </header>
-        <br>
-        <%
-        if(priv.equals("A")){ %>
-            <a href="ventas.jsp"><font color="#000000" >Ventas Realizadas</font></a><br>
-            <a href="reportes.jsp"><font color="#000000" >Reportes</font></a>
-        <%}%>           
-        <h1>Productos disponibles</h1>
-        <div class="filter_by">        
-            <h3>Filtrar por:
-                <form action="productos.jsp" method="post">
-                    <select name="filter" onchange="this.form.submit();" >
-                        <option value="N">Todos</option>
-                        <option value='I'>Imágenes</option>
-                        <option value="L">Libros</option>
-                        <option value="P">Películas</option>
-                        <option value="M">Música</option>
-                    </select>
-                </form>
-            </h3>
-        </div><br><br><br><br><br>  
-        <div>
-            <%
-            try{
-                Conexion con = new Conexion();
-                Producto aux;
-                char tipo = 'N';
-                if(request.getParameter("filter")!=null){
-                    tipo = request.getParameter("filter").charAt(0);
-                }
-                ArrayList<Producto> productos = Sentencias.readProductos(tipo);
-                for (Producto p : productos) {
-                    out.print("<div class='product-container'>");
-                        out.print("<h4>" + p.getNombre() + "</h4><br><br>");
-                        out.print("<img id='id_img' src='data:image/jpg;base64," + p.getFoto() + "' width='50' height='50' ><br><br>");
-                        out.print("$ " + p.getPrecio() + " mxn<br>");
-                        if (priv.equals("A")) {
-                            out.print(p.getStock() + " unidades disponibles");
-                            out.print("<a href='detalles.jsp?sku="+p.getId()+"'><button>Editar producto</button></a>");
+                try{
+                    Conexion con = new Conexion();
+                    Producto aux;
+                    char tipo = 'N';
+                    if(request.getParameter("filter")!=null){
+                        tipo = request.getParameter("filter").charAt(0);
+                    }
+                    ArrayList<Producto> productos = Sentencias.readProductos(tipo);
+                    for (Producto p : productos) {
+                        out.print("<div class='product-container'>");
+                            out.print("<div class='product-img'>");
+                                out.print("<img id='id_img' src='data:image/jpg;base64,"+p.getFoto()+"'>");
+                                out.print("<div class='product-overlay'></div>");
+                                out.print("<div class='btn-add'><a href='ServletCarrito?accion=agregar&id="+p.getId()+"' onclick=\"agregar_carrito();\">Comprar</a></div>");
+                                out.print("<div class='btn-details'><a href='detalles.jsp?sku="+p.getId()+"'>Ver detalles</a></div>");
                             out.print("</div>");
-                        } else {
-                            out.print("<a href='ServletCarrito?accion=agregar&id=" + p.getId() + "'><button class='add_cart' onclick=\"agregar_carrito();\">Agregar al carrito</button></a><br>");
-                            out.print("<a href='detalles.jsp?sku=" + p.getId() + "'><button class='detail_btn'>Ver detalles</button></a>");
-                            out.print("</div>");
-                        }
-                }
-                if (priv.equals("A")) {
-                    out.print("<div class='product-container'><h4>Añadir producto</h4><br><br><a href='aniadir_producto.jsp'><img src='IMG/add.png' width='80' height='80'></a></div>");
-                }   
-            }catch(Exception e){
-                System.out.println("ERROR (productos.jsp): "+e);
-                e.printStackTrace();
-            }
-            %>
-            <% if(sesionOK.getAttribute("username") != null){%>
-            <a href="ServletLoguin?accion=cerrar">Cerrar sesion</a>
+                            out.print("<p class='product-info'>");
+                                out.print("<b>"+p.getNombre()+"</b><br/>");
+                                out.print("$"+p.getPrecio()+" mxn");
+                            out.print("</p>");
+                        out.print("</div>");
+                    }
+                    if (priv.equals("A")) {
+                        out.print("<div class='product-container'><h4>Añadir producto</h4><br><br><a href='aniadir_producto.jsp'><img src='IMG/add.png' width='80' height='80'></a></div>");
+                    }
+                }catch(Exception e){
+                    System.out.println("ERROR (productos.jsp): "+e);
+                    e.printStackTrace();
+                } 
+            if(sesionOK.getAttribute("username") != null){%>
+                <a href="ServletLoguin?accion=cerrar">Cerrar sesion</a>
             <%}%>
+            </div>
         </div>
-        <div class="product-detail">
-            <h3></h3>
-        </div>
-    </center>
+        <footer class="page-footer font-small">
+            <div class="footer-copyright text-center py-3">
+                © 2020 Copyright Upmix.
+            </div>
+        </footer>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            function agregar_carrito(){
+                alert("Producto agregado al carrito de compras");
+            }
+
+            <% if(!msj.equals("")) {%>
+                alert("Compra realizada con éxito");
+            <%}%>
+        </script>
     </body>
 </html>
