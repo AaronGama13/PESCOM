@@ -41,131 +41,123 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="CSS/universal.css">
-        <style type="text/css">
-            button{
-                display: inline-block;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                border-radius: 10px;
-                margin: 0px;
-                background: grey;
-            }
-            button.visible{
-                background: #5cb85c; 
-            }
-            button.novisible{
-                background: #d9534f;
-            }
-        </style> 
+        <!--Scripts-->
+	<!--Estilos-->
+	<link rel="stylesheet" type="text/css" href="CSS/carrito.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
     </head>
     <body>
-        <center>
-        <header>
-            <div>
-                <a href="productos.jsp">Productos</a>
-                <a href="carrito.jsp"><img class='view_cart' src="IMG/cart.jpg" width="30" height="30"></a>
-                <a href="ajustes.jsp"><img class='view_cart' src="IMG/user.jpg" width="30" height="30"></a>
-            </div>
-        </header>
-        <div>
-            <h1>Mi carrito de compras</h1>
-            <%
-                try{
-                    out.print("<table>");
-                    out.print("<tr>");
-                    out.print("<td width='50'><center> &nbsp </center></td>");
-                    out.print("<td width='60'><center> Cantidad </center></td>");
-                    out.print("<td width='150'><center> Producto </center></td>");
-                    out.print("<td width='100'><center> Precio </center></td>");
-                    out.print("</tr>");
-                    
-                    if(Carrito == null)
-                        Carrito = new ArrayList<Producto>();
-                    if(Cantidad == null)
-                        Cantidad = new int[100][2];
-                      
-                    int k = 0;
-                    for(int i = 0; i < 100; i++){
-                        if(Cantidad[k][0] == 0)
-                            break;
-                        out.print("<tr>");
-                        for(Producto p: Carrito){
-                            if(p.getId() == Cantidad[k][0]){
-                                if(Cantidad[k][1] <= 0)
-                                    continue;
-                                out.print("<td><center><img id='id_img' src='data:image/jpg;base64, " + p.getFoto() + "'width='40' height='40'></center></td>");
-                                out.print("<td><center>"+Cantidad[k][1]+ "</center></td>");
-                                out.print("<td><center>"+p.getNombre()+" <input type=\"hidden\" name=\"idProducto\" value="+p.getId()+"></center></td>");
-                                out.print("<td><center>" + p.getPrecio() + "</center></td>");
-                                out.print("<td><center><a href='ServletCarrito?accion=quitar&id="+p.getId()+"'><button class='add_cart' onclick=\"quitar_carrito();\">Quitar</button></a></center></td>");
-                        
-                                break;
-                            }
-                        }
-                        out.print("</tr>");
-                        k++;
-                    }
-                    out.print("</table>");
-                }catch(Exception e){
-                    System.out.println("ERROR"+e);
-                }
-            %>
-        </div>
-        
-        <div>
-            <h2>
-                Seleccione forma de pago:
-            </h2>
-            <table>
-                <tr>
-                    <td>
-                        <a href='ServletCarrito?accion=Tarjeta&id=0'>
-                            <button name="VISA" id="VISA" class="visible"> VISA</button>
-                        </a>
-                    </td>
-                    <td><label>&nbsp&nbsp&nbsp&nbsp&nbsp</label></td>
-                    <td>
-                        <a href='ServletCarrito?accion=Tarjeta&id=1'>
-                            <button name="Mastercard" id="Mastercard" class="novisible"> Mastercard</button>
-                        </a>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <form action="ServletCarrito" method="POST">
-                <table>
-                    <tr>
-                        <td width='200'>
-                            <h3>
-                                Numero de tarjeta:
-                            </h3>
-                        </td>
-                        <td width='100'>
-                            <h3>
-                                Fecha de vencimiento:
-                            </h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" placeholder="5451354972" name="NumTarjeta">
-                        </td>
-                        <td>
-                            <input type="date" name="FechTarjeta">
-                        </td>
-                    </tr>
-                </table>
-
-                <%
-                    out.print("<input type='submit' value='Proceder con la compra'> ");
-                %>
-            </form>
-            <%
-                out.print("<label> "+Validar+" </label>");
-            %>  
-        </div>
-    </center>
+        <!--Cabecera-->
+	<header id="cabecera">
+		<div id="logo">
+			<h1>UPMIXLOGO</h1>
+		</div>
+		<nav id="menu">
+			<ul>
+				<li><a href="#">Perfil</a></li>
+				<li><a href="#">Catálogo</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div class="clearfix"></div>
+	<section id="global">
+		<div id="carrito">
+			<header id="tu-carrito">
+				<h1>Tu carrito</h1>
+				<div class="carroC">	
+					<img src="IMG/carrito.png">
+				</div>
+				<div class="clearfix"></div>
+			</header>
+			<div id="productos">
+				<ul id="lista-productos">
+					<div class="articulo">
+						<li>							
+							<img src="IMG/img1.jpg" id="imagen">							
+							<div id="descripcion">
+								<p>CD Appetite for Destruction - Guns N' Roses</p>
+							</div>
+							<div id="precio">
+								<p>$10,000</p>
+							</div><br><br>
+							<div id="btn-remover">
+								<form method="post">
+									<input type="submit" name="remover" id="remover" value="remover">
+								</form>
+							</div>
+						</li>		
+						<div class="clearfix"></div>								
+					</div><hr>
+					<div class="articulo">
+						<li>							
+							<img src="IMG/img2.jpg" id="imagen">							
+							<div id="descripcion">
+								<p>Las Batallas en el Desierto - José Emilio Pacheco</p>
+							</div>
+							<div id="precio">
+								<p>$10,000</p>
+							</div><br><br>
+							<div id="btn-remover">
+								<form method="post">
+									<input type="submit" name="remover" id="remover" value="remover">
+								</form>
+							</div>
+						</li>		
+						<div class="clearfix"></div>								
+					</div><hr>
+					<div class="articulo">
+						<li>							
+							<img src="IMG/img3.jpeg" id="imagen">							
+							<div id="descripcion">
+								<p>Juego Nintendo Switch Super Smash Bros Ultimate</p>
+							</div>
+							<div id="precio">
+								<p>$10,000</p>
+							</div><br><br>
+							<div id="btn-remover">
+								<form method="post">
+									<input type="submit" name="remover" id="remover" value="remover">
+								</form>
+							</div>
+						</li>		
+						<div class="clearfix"></div>								
+					</div><hr>
+					<div class="articulo">
+						<li>							
+							<img src="IMG/img4.jpg" id="imagen">							
+							<div id="descripcion">
+								<p>Avengers Endgame Bluray</p>
+							</div>
+							<div id="precio">
+								<p>$10,000</p>
+							</div><br><br>
+							<div id="btn-remover">
+								<form method="post">
+									<input type="submit" name="remover" id="remover" value="remover">
+								</form>
+							</div>
+						</li>		
+						<div class="clearfix"></div>								
+					</div><hr>
+				</ul>
+			</div>
+		</div>
+		<div id="subtotal">
+			<div id="resumen">
+				<h1>resumen</h1>
+			</div>
+			<div id="total">
+				<span>Total a pagar</span><br>
+				<span>$40,000</span>
+			</div>
+			<div id="pagar">
+				<form>
+					<input type="submit" name="pagar" id="btn-pagar" value="pagar">
+				</form>
+			</div>
+			<button id="seguir-comprando">Seguir comprando</button>
+		</div>
+		<div class="clearfix"></div>
+	</section>
     </body>
 </html>
