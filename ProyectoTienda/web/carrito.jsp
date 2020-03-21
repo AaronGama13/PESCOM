@@ -112,6 +112,7 @@
                                 System.out.println("Error perro " + e);
                             }
                             %>
+                            <!--NO BORRAR EL SIGUIENTE BLOQUE DE CÓDIGO QUE ESTÁ COMENTADO-->
 				<!--<ul id="lista-productos">
 					<div class="articulo">
 						<li>							
