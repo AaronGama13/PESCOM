@@ -70,7 +70,49 @@
 				<div class="clearfix"></div>
 			</header>
 			<div id="productos">
-				<ul id="lista-productos">
+                            <%
+                            try{
+                                if(Carrito == null)
+                                    Carrito = new ArrayList<Producto>();
+                                if(Cantidad == null)
+                                    Cantidad = new int[100][2];
+                                int k = 0;
+                                for(int i = 0; i < 100; i++) {
+                                    if(Cantidad[k][0] == 0)
+                                    break;
+                                    out.print("<ul id='lista-productos'>");
+                                    for(Producto p: Carrito) {
+                                            if(p.getId() == Cantidad[k][0]){
+                                            if(Cantidad[k][1] <= 0)
+                                            continue;
+                                        out.print("<div class='articulo'>");    
+                                        out.print("<li>");
+                                        out.print("<img src='IMG/img1.jpg'id='imagen'>");
+                                        out.print("<div id='descripcion'>");
+                                        out.print("<p>" + p.getNombre() + "</p>");
+                                        out.print("</div>");
+                                        out.print("<div id='precio'>");
+                                        out.print("<p>$" + p.getPrecio() + "</p>");
+                                        out.print("</div><br><br>");
+                                        out.print("<div id='btn-remover'>");
+                                        out.print("<form method='post' action='ServletCarrito?accion=quitar&id="+ p.getId() +"'>");
+                                        out.print("<input type='submit' name='remover' id='remover' value='remover'>");                                        
+                                        out.print("</form>");
+                                        out.print("</div>");
+                                        out.print("</li>");
+                                        out.print("<div class='clearfix'></div>");
+                                        out.print("</div><hr>");                                        
+                                        break;
+                                        }
+                                    }
+                                    out.print("</ul>");
+                                    k++;
+                                }
+                            }catch(Exception e){
+                                System.out.println("Error perro " + e);
+                            }
+                            %>
+				<!--<ul id="lista-productos">
 					<div class="articulo">
 						<li>							
 							<img src="IMG/img1.jpg" id="imagen">							
@@ -88,58 +130,7 @@
 						</li>		
 						<div class="clearfix"></div>								
 					</div><hr>
-					<div class="articulo">
-						<li>							
-							<img src="IMG/img2.jpg" id="imagen">							
-							<div id="descripcion">
-								<p>Las Batallas en el Desierto - José Emilio Pacheco</p>
-							</div>
-							<div id="precio">
-								<p>$10,000</p>
-							</div><br><br>
-							<div id="btn-remover">
-								<form method="post">
-									<input type="submit" name="remover" id="remover" value="remover">
-								</form>
-							</div>
-						</li>		
-						<div class="clearfix"></div>								
-					</div><hr>
-					<div class="articulo">
-						<li>							
-							<img src="IMG/img3.jpeg" id="imagen">							
-							<div id="descripcion">
-								<p>Juego Nintendo Switch Super Smash Bros Ultimate</p>
-							</div>
-							<div id="precio">
-								<p>$10,000</p>
-							</div><br><br>
-							<div id="btn-remover">
-								<form method="post">
-									<input type="submit" name="remover" id="remover" value="remover">
-								</form>
-							</div>
-						</li>		
-						<div class="clearfix"></div>								
-					</div><hr>
-					<div class="articulo">
-						<li>							
-							<img src="IMG/img4.jpg" id="imagen">							
-							<div id="descripcion">
-								<p>Avengers Endgame Bluray</p>
-							</div>
-							<div id="precio">
-								<p>$10,000</p>
-							</div><br><br>
-							<div id="btn-remover">
-								<form method="post">
-									<input type="submit" name="remover" id="remover" value="remover">
-								</form>
-							</div>
-						</li>		
-						<div class="clearfix"></div>								
-					</div><hr>
-				</ul>
+				</ul>-->
 			</div>
 		</div>
 		<div id="subtotal">
