@@ -49,6 +49,9 @@ nav{
 	padding-botton: 30px;
 }
 
+.menu-overlay{
+    position: absolute;
+}
 
 .filter-menu{
 	width: 20%;

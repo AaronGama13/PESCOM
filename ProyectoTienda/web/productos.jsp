@@ -53,59 +53,33 @@
                         <a class="nav-link products-link" href="#">Productos</a>
                     </li>
                 </ul>
-                <img src="assets/icons/profile.png" class="profile">
-                <img src="assets/icons/cart.png" class="cart">
+                <a href="ajustes.jsp"><img src="assets/icons/profile.png" class="profile"></a>
+                <a href="carrito.jsp"><img src="assets/icons/cart.png" class="cart"></a>
             </div>
         </nav>		
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="assets/imgs/uno.jpg" class="d-block w-100">
-                    <div class="carousel-caption">
-                        <div class="filter-menu">
-                            <div class="menu-item">
-                                <img src="assets/icons/book.png" width="20" height="20">
-                                <p>Libros</p>
-                            </div>
-                            <div class="menu-item">
-                                <img src="assets/icons/movie.png" width="20" height="20">
-                                <p>Películas</p>
-                            </div>
-                            <div class="menu-item">
-                                <img src="assets/icons/cd.png" width="20" height="20">
-                                <p>Música</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="carousel-item">
                     <img src="assets/imgs/dos.png" class="d-block w-100">
-                    <div class="carousel-caption">
-                        <div class="filter-menu">
-                            <div class="menu-item">
-                                <img src="assets/icons/book.png" width="20" height="20">
-                                <p>Libros</p>
-                            </div>
-                            <div class="menu-item">
-                                <img src="assets/icons/movie.png" width="20" height="20">
-                                <p>Películas</p>
-                            </div>
-                            <div class="menu-item">
-                                <img src="assets/icons/cd.png" width="20" height="20">
-                                <p>Música</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="carousel-item">
                     <img src="assets/imgs/tres.jpg" class="d-block w-100">
-                    <div class="carousel-caption">
+                </div>
+                <div class="menu-overlay">
+                    <form action="productos.jsp" method="post" id="filter-form">
                         <div class="filter-menu">
                             <div class="menu-item">
-                                <img src="assets/icons/book.png" width="20" height="20">
-                                <p>Libros</p>
+                                <input type="hidden" name="filter" value="L">
+                                <a id="filter-link">
+                                    <img src="assets/icons/book.png" width="20" height="20">
+                                    <p>Libros</p>
+                                </a>
                             </div>
                             <div class="menu-item">
+
                                 <img src="assets/icons/movie.png" width="20" height="20">
                                 <p>Películas</p>
                             </div>
@@ -114,22 +88,28 @@
                                 <p>Música</p>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="container">	
             <div class="catalogue">
                 <br/><br/>
-                <p class="title">Catálogo de CDs</p>
                 <%
                 try{
-                    Conexion con = new Conexion();
-                    Producto aux;
                     char tipo = 'N';
                     if(request.getParameter("filter")!=null){
                         tipo = request.getParameter("filter").charAt(0);
-                    }
+                        if(tipo=='L'){
+                            out.print("<p class='title'>Catálogo de libros</p>");
+                        }else if(tipo=='P'){
+                            out.print("<p class='title'>Catálogo de películas</p>");
+                        }else{
+                            out.print("<p class='title'>Catálogo de CDs</p>");
+                        }
+                    }                
+                    Conexion con = new Conexion();
+                    Producto aux;
                     ArrayList<Producto> productos = Sentencias.readProductos(tipo);
                     for (Producto p : productos) {
                         out.print("<div class='product-container'>");
@@ -145,16 +125,14 @@
                             out.print("</p>");
                         out.print("</div>");
                     }
-                    if (priv.equals("A")) {
-                        out.print("<div class='product-container'><h4>Añadir producto</h4><br><br><a href='aniadir_producto.jsp'><img src='IMG/add.png' width='80' height='80'></a></div>");
-                    }
+                    //if (priv.equals("A")) {
+                      //  out.print("<div class='product-container'><h4>Añadir producto</h4><br><br><a href='aniadir_producto.jsp'><img src='IMG/add.png' width='80' height='80'></a></div>");
+                    //}
                 }catch(Exception e){
                     System.out.println("ERROR (productos.jsp): "+e);
                     e.printStackTrace();
                 } 
-            if(sesionOK.getAttribute("username") != null){%>
-                <a href="ServletLoguin?accion=cerrar">Cerrar sesion</a>
-            <%}%>
+                %>
             </div>
         </div>
         <footer class="page-footer font-small">
@@ -166,6 +144,8 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script type="text/javascript">
+            
+            
             function agregar_carrito(){
                 alert("Producto agregado al carrito de compras");
             }
