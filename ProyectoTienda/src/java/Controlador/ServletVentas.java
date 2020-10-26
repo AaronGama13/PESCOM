@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador;
+package Controlador;//ELPEPE
 
 import Database.Sentencias;
 import Modelos.Producto;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ServletVentas", urlPatterns = {"/ServletVentas"})
 public class ServletVentas extends HttpServlet {
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try(PrintWriter out = response.getWriter()){
@@ -33,7 +33,7 @@ public class ServletVentas extends HttpServlet {
             String priv = (String) sesion.getAttribute("priv");
             String accion = request.getParameter("accion");
             int idVenta = Integer.parseInt(request.getParameter("id"));
-            
+
             if(accion.equals("mostrar")){
                 ResultSet Compra = Sentencias.NoVenta(idVenta);
                 sesion.setAttribute("username", username);
@@ -41,13 +41,13 @@ public class ServletVentas extends HttpServlet {
                 sesion.setAttribute("rs", Compra);
                 response.sendRedirect("venta_detalles.jsp");
             }
-            
+
         }catch(Exception e){
             System.out.println("ERROR (Sentencias.readProductos): "+e);
             e.printStackTrace();
         }
     }
-   
+
     /**
      * Returns a short description of the servlet.
      *
