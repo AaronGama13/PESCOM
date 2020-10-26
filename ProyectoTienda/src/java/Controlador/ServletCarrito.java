@@ -22,17 +22,17 @@ public class ServletCarrito extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-            
+
             int idProducto = Integer.parseInt(request.getParameter("id"));
             String accion = request.getParameter("accion");
             HttpSession sesion = request.getSession();
             int[][] Cantidad = (int [][]) sesion.getAttribute("Cantidad");
             ArrayList<Producto> Carrito = (ArrayList<Producto>) sesion.getAttribute("Carrito");
-            
+
             if(accion.equals("agregar")){
                 Producto aux = Sentencias.readProductoId(idProducto);
                 if(Carrito == null)
-                    Carrito = new ArrayList<Producto>();  
+                    Carrito = new ArrayList<Producto>();
                 Carrito.add(aux);
                 Cantidad = SacarCantidad(Carrito);
                 sesion.setAttribute("Carrito", Carrito);
@@ -44,7 +44,8 @@ public class ServletCarrito extends HttpServlet {
                 //int i = Carrito.indexOf((Object) aux);
                 //if(Carrito == null)
                 //    Carrito = new ArrayList<Producto>();
-                
+                /*HOLA SOY UN COMENTARIO, SALUDOS A DAMARIS Y A OMAR
+                SON EL MEJOR EQUIPO DE ANALISIS DE ALGORITMOS*/
                 for(int i = 0; i < 100; i++){
                     if(Cantidad[i][0] == aux.getId())
                     {
@@ -59,7 +60,7 @@ public class ServletCarrito extends HttpServlet {
                                     Cantidad[k+1][1] = 0;
                                 }
                             }
-                            
+
                         }
                         break;
                     }
@@ -71,7 +72,7 @@ public class ServletCarrito extends HttpServlet {
                 if(idProducto == 0){
                     sesion.setAttribute("Tarjeta", "VISA");
                     response.sendRedirect("carrito.jsp");
-                }                    
+                }
                 else if(idProducto == 1){
                     sesion.setAttribute("Tarjeta", "Mastercard");
                     response.sendRedirect("carrito.jsp");
@@ -82,7 +83,7 @@ public class ServletCarrito extends HttpServlet {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -105,8 +106,8 @@ public class ServletCarrito extends HttpServlet {
             Date sFech =  formateador.parse(request.getParameter("FechTarjeta"));
             String aux2 = formateador.format(new Date());
             Date fechaActual =  formateador.parse(aux2);
-            
-            
+
+
             String sNum =  request.getParameter("NumTarjeta");
             sNum = sNum.replace(" ","");
             if(sNum.length() != 16){
@@ -155,11 +156,11 @@ public class ServletCarrito extends HttpServlet {
             e.printStackTrace();
         }
     }
-    
+
     public static int[][] SacarCantidad(ArrayList<Producto> Carrito){
         int[][] Cantidad = new int [100][2];
         int k = 0;
-        
+
         ciclo:
         for(Producto p : Carrito){
             for(int i = 0; i < 100; i++){
@@ -177,7 +178,7 @@ public class ServletCarrito extends HttpServlet {
         }
         return Cantidad;
     }
-          
+
 
     @Override
     public String getServletInfo() {
