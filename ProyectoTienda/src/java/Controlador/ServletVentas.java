@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador;//ELPEPE
+package Controlador;//ELPEPECACA
 
 import Database.Sentencias;
 import Modelos.Producto;
